@@ -1,34 +1,34 @@
-import java.util.ArrayList;
+package model;
+
 import java.util.HashMap;
-import java.util.Objects;
 
-public class Subtask extends  Task{
-    public int getApicId() {
-        return apicId;
+public class Subtask extends Task {
+    public int getEpicId() {
+        return epicId;
     }
 
-    public void setApicId(int apicId) {
-        this.apicId = apicId;
+    public void setEpicId(int epicId) {
+        this.epicId = epicId;
     }
 
-    private int apicId;
-    Subtask(String name, String description, int apicId, HashMap<Integer, Epic> epics){
+    private int epicId;
+    public Subtask(String name, String description, int epicId, HashMap<Integer, Epic> epics){
       super(name, description);
       this.setName(name);
       this.setDescription(description);
       this.setId(name.hashCode());
       this.setStatus(Status.TaskStatus.NEW);
-      epics.get(apicId).getIdSubtask().add(this.getId());
+      epics.get(epicId).getSubtaskIds().add(this.getId());
     }
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "model.Subtask{" +
                 "name='" + getName() + '\'' +
                 ", description='" + getDescription() + '\'' +
                 ", id=" + getId() +
                 ", status=" + getStatus() +
-                "apicId=" + apicId +
+                "apicId=" + epicId +
                 '}';
     }
 }

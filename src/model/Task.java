@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Objects;
 public class Task  {
     private String name;
@@ -5,7 +7,7 @@ public class Task  {
     private int id;
     private Status.TaskStatus status;
 
-    Task(String name, String description){
+    public Task(String name, String description){
         this.name = name;
         this.description = description;
         id = name.hashCode();
@@ -56,7 +58,7 @@ public class Task  {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "model.Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +

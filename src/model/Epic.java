@@ -1,15 +1,21 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Epic extends Task{
-    private ArrayList<Integer> idSubtask = new ArrayList<>();
-    Epic(String name, String dedescription){
+public class Epic extends Task {
+    private ArrayList<Integer> subtaskIds = new ArrayList<>();
+   public Epic(String name, String dedescription){
         super(name,dedescription );
         this.setName(name);
         this.setDescription(dedescription);
         this.setId(name.hashCode());
         this.setStatus(Status.TaskStatus.NEW);
         System.out.println("Успешно добавлено");
+    }
+
+    public  void cleanSubtaskIds(){
+        subtaskIds.clear();
     }
 
 
@@ -19,36 +25,36 @@ public class Epic extends Task{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Epic epic = (Epic) o;
-        return Objects.equals(idSubtask, epic.idSubtask);
+        return Objects.equals(subtaskIds, epic.subtaskIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), idSubtask);
+        return Objects.hash(super.hashCode(), subtaskIds);
     }
 
-    public ArrayList<Integer> getIdSubtask() {
-        return idSubtask;
+    public ArrayList<Integer> getSubtaskIds() {
+        return subtaskIds;
     }
 
-    public void setIdSubtask(ArrayList<Integer> idSubtask) {
-        this.idSubtask = idSubtask;
+    public void setSubtaskIds(ArrayList<Integer> idSubtask) {
+        this.subtaskIds = subtaskIds;
     }
 
     @Override
     public String toString() {
-        if (idSubtask.isEmpty()){
-            return "Epic{" + "name='" + getName() + '\'' +
+        if (subtaskIds.isEmpty()){
+            return "model.Epic{" + "name='" + getName() + '\'' +
                     ", description='" + getDescription() + '\'' +
                     ", id=" + getId() +
                     ", status=" + getStatus() +
                     "idSubtask= 0}";
         } else {
-            return "Epic{" + "name='" + getName() + '\'' +
+            return "model.Epic{" + "name='" + getName() + '\'' +
                     ", description='" + getDescription() + '\'' +
                     ", id=" + getId() +
                     ", status=" + getStatus() +
-                    ", idSubtask=" + idSubtask +
+                    ", idSubtask=" +    subtaskIds +
                     '}';
         }
     }
