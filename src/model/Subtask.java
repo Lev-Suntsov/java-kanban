@@ -12,23 +12,23 @@ public class Subtask extends Task {
     }
 
     private int epicId;
-    public Subtask(String name, String description, int epicId, HashMap<Integer, Epic> epics){
+    public Subtask(String name, String description, int epicId){
       super(name, description);
       this.setName(name);
       this.setDescription(description);
       this.setId(name.hashCode());
       this.setStatus(Status.TaskStatus.NEW);
-      epics.get(epicId).getSubtaskIds().add(this.getId());
+      this.epicId = epicId;
     }
 
     @Override
     public String toString() {
         return "model.Subtask{" +
-                "name='" + getName() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", id=" + getId() +
-                ", status=" + getStatus() +
-                "apicId=" + epicId +
+                "name= '" + getName() + '\'' +
+                ", description= '" + getDescription() + '\'' +
+                ", id= " + getId() +
+                ", status= " + getStatus() +
+                "apicId= " + epicId +
                 '}';
     }
 }

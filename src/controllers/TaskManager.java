@@ -12,7 +12,7 @@ public class TaskManager {
      private HashMap<Integer, Epic> epics = new HashMap<>();
      private HashMap<Integer, Task> tasks = new HashMap<>();
      private HashMap<Integer, Subtask> subtasks = new HashMap<>();
-     private int generatorId = 1;
+     private int generatorId = 0;
      public TaskManager(){
 
      }
@@ -30,7 +30,10 @@ public class TaskManager {
      }
      public int addNewSubtask(Subtask subtask, int epicsid){
         final int id = ++generatorId;
+        subtask.setId(id);
+        subtask.setStatus(Status.TaskStatus.NEW);
         subtasks.put(id, subtask);
+        epics.get(epicsid).getSubtaskIds().add(id);
          updateEpicStatus(epicsid);
         return id;
      }
@@ -92,6 +95,8 @@ public class TaskManager {
      public void updateSubtask(int id, String name, String description, int epicId, Status.TaskStatus status){
         subtasks.get(id).setName(name);
         subtasks.get(id).setDescription(description);
+        subtasks.get(id).setStatus(status);
+        updateEpicStatus(epicId);
      }
 
      public void updateEpic(int id, String name,String decdription){
@@ -102,8 +107,8 @@ public class TaskManager {
      public Status.TaskStatus updateEpicStatus(int id){
         for( int i = 0; i< epics.get(id).getSubtaskIds().size(); i ++){
             if(subtasks.get(epics.get(id).getSubtaskIds().get(i)).getStatus() == Status.TaskStatus.NEW){
-                epics.get(epics).setStatus(Status.TaskStatus.NEW);
-                if (epics.get(id).getSubtaskIds().size() > 0) {
+                epics.get(id).setStatus(Status.TaskStatus.NEW);
+                if (i + 1 < epics.get(id).getSubtaskIds().size()) {
                     if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() ==
                             Status.TaskStatus.NEW) {
                         epics.get(id).setStatus(Status.TaskStatus.NEW);
@@ -112,7 +117,7 @@ public class TaskManager {
                     }
                 }
             } else if(subtasks.get(epics.get(id).getSubtaskIds().get(i)).getStatus() == Status.TaskStatus.DONE){
-                if (epics.get(id).getSubtaskIds().size() > 0) {
+                if (i + 1 < epics.get(id).getSubtaskIds().size()) {
                     if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() ==
                             Status.TaskStatus.DONE) {
                         epics.get(id).setStatus(Status.TaskStatus.DONE);
@@ -122,6 +127,7 @@ public class TaskManager {
                 }
             } else{
                 epics.get(id).setStatus(Status.TaskStatus.IN_PROGRESS);
+                break;
             }
             }
         return epics.get(id).getStatus();
