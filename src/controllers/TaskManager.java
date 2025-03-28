@@ -54,10 +54,23 @@ public class TaskManager {
         tasks.remove(id);
      }
      public void removeEpicById(int id){
+         for(int subtaskId : subtasks.keySet()){
+             for(int removedId : epics.get(id).getSubtaskIds()){
+                 if(subtaskId == removedId){
+                     subtasks.remove(subtaskId);
+                 }
+             }
+         }
         epics.remove(id);
      }
-     public void removeSubtaskById(int id){
-        subtasks.remove(id);
+     public void removeSubtaskById(int id, int epicId){
+         subtasks.remove(id);
+         for(int i = 0; i < epics.get(epicId).getSubtaskIds().size(); i++){
+             if(epics.get(epicId).getSubtaskIds().get(i) == id){
+                 epics.get(epicId).getSubtaskIds().remove(i);
+             }
+         }
+         updateEpicStatus(epicId);
      }
 
 
@@ -78,11 +91,13 @@ public class TaskManager {
      public void deleteSubtasks(){
         for(Epic epic : epics.values()){
             epic.cleanSubtaskIds();
-            updateEpicStatus(epic.getId());
+            epic.setStatus(Status.TaskStatus.NEW);
         }
+        subtasks.clear();
      }
      public void deleteEpics(){
         epics.clear();
+        subtasks.clear();
      }
 
 
@@ -132,9 +147,7 @@ public class TaskManager {
             }
         return epics.get(id).getStatus();
      }
-    public HashMap<Integer, Epic> getEpics() {
-        return epics;
-    }
+
 }
 
 

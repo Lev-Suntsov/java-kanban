@@ -76,9 +76,9 @@ public class Main {
         System.out.println("Введите описание");
         description = scanner.nextLine();
         System.out.println("Сейчас у одной подзадачи статус новый, у второй статус поменяем на progress." +
-                "Сейчас статус эпика =" + taskManager.getEpics().get(epicsId).getStatus().toString());
+                "Сейчас данные эпика =" + taskManager.getEpic(epicsId).toString());
         taskManager.updateSubtask(id,name,description,epicsId,Status.TaskStatus.IN_PROGRESS);
-        System.out.println("Теперь статус = " + taskManager.getEpics().get(epicsId).getStatus().toString());
+        System.out.println("Теперь данные = " + taskManager.getEpic(epicsId).toString());
 
         System.out.println();
         System.out.println("Поменяем статусы обеих подзадач на DONE");
@@ -92,7 +92,7 @@ public class Main {
         System.out.println("Введите описание");
         description = scanner.nextLine();
         taskManager.updateSubtask(id, name, description, epicsId, Status.TaskStatus.DONE);
-        System.out.println("Теперь статус эпика = " + taskManager.getEpics().get(epicsId).getStatus().toString());
+        System.out.println("Теперь данные эпика = " + taskManager.getEpic(epicsId).toString());
 
 
         System.out.println("Введите id удаляемой задачи");
@@ -103,8 +103,10 @@ public class Main {
 
         System.out.println("Теперь введите id удаляемой подзадачи");
         id = scanner.nextInt();
+        System.out.println("Введите id эпика, в котором эта задача находится");
+        epicsId = scanner.nextInt();
         System.out.println("Сейчас список = " + taskManager.getSubtasksValues().toString());
-        taskManager.removeSubtaskById(id);
+        taskManager.removeSubtaskById(id, epicsId);
         System.out.println("Теперь список = " + taskManager.getSubtasksValues().toString());
         System.out.println();
         System.out.println("Теперь очистим одной командой весь список подзадач");
