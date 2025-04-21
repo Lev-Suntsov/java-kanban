@@ -1,5 +1,6 @@
 package test.controllers;
 
+import controllers.InMemoryHistoryManager;
 import controllers.InMemoryTaskManager;
 import controllers.Managers;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ class ManagersTest {
     @Test
     void checkGetDefaultHistory() {
         Managers managers = new Managers();
-        ArrayList<Task> test = new ArrayList<>();
-        assertEquals(test.toString(), managers.getDefaultHistory().toString(),
+        InMemoryHistoryManager test = new InMemoryHistoryManager();
+        assertEquals(test.getClass(), managers.getDefaultHistory().getClass(),
                 "Проверьте метод getDefaultHistory()");
     }
 }

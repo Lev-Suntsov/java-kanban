@@ -13,7 +13,8 @@ public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
     private int generatorId = 0;
-    InMemoryHistoryManager iistoryManager = new InMemoryHistoryManager();
+
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public int addNewTask(Task task) {
@@ -30,13 +31,12 @@ public class InMemoryTaskManager implements TaskManager {
         return id;
     }
     @Override
-    public int addNewSubtask(Subtask subtask, int epicsid) {
+    public int addNewSubtask(Subtask subtask) {
         final int id = ++generatorId;
         subtask.setId(id);
-        subtask.setStatus(Status.TaskStatus.NEW);
         subtasks.put(id, subtask);
-        epics.get(epicsid).getSubtaskIds().add(id);
-        updateEpicStatus(epicsid);
+        epics.get(subtask.getEpicId()).getSubtaskIds().add(id);
+        updateEpicStatus(subtask.getEpicId());
         return id;
     }
 
@@ -81,17 +81,24 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTask(int id) {
-        iistoryManager.getHistory().add(tasks.get(id));
+        if(tasks.containsKey(id)) {
+            historyManager.add(tasks.get(id));
+        }
         return tasks.get(id);
+
     }
     @Override
     public Epic getEpic(int id) {
-        iistoryManager.getHistory().add(epics.get(id));
+        if(epics.containsKey(id)) {
+            historyManager.getHistory().add(epics.get(id));
+        }
         return epics.get(id);
     }
     @Override
     public Subtask getSubtask(int id) {
-        iistoryManager.getHistory().add(subtasks.get(id));
+        if(subtasks.containsKey(id)) {
+            historyManager.getHistory().add(subtasks.get(id));
+        }
         return subtasks.get(id);
     }
 
@@ -161,10 +168,10 @@ public class InMemoryTaskManager implements TaskManager {
         return epics.get(id).getStatus();
     }
     @Override
-    public<T  extends Task> ArrayList<T> getHistory(){
-        ArrayList<T> history = new ArrayList<>();
-        for(int i = 0; i< iistoryManager.getHistory().size(); i++){
-            history.add((T) iistoryManager.getHistory().get(i));
+    public ArrayList<Task> getHistory(){
+        ArrayList<Task> history = new ArrayList<>();
+        for(int i = 0; i< historyManager.getHistory().size(); i++){
+            history.add((Task) historyManager.getHistory().get(i));
         }
         return  history;
     }

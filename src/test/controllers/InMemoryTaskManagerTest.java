@@ -47,7 +47,8 @@ class InMemoryTaskManagerTest {
     @Test
     void checkAddNewSubtask() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         assertEquals(subtask, taskManager.getSubtask(subtask.getId()),
                 "В методе добавления подзадачи допущена ошибка");
     }
@@ -71,7 +72,8 @@ class InMemoryTaskManagerTest {
     @Test
     void checkGetSubtasksValues() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         testSubtasks.add(subtask);
         assertEquals(testSubtasks, taskManager.getSubtasksValues(), "Метод получения" +
                 " подзадачи эпиков работает некорректно");
@@ -96,7 +98,8 @@ class InMemoryTaskManagerTest {
     @Test
     void chekRemoveSubtaskById() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         taskManager.removeSubtaskById(subtask.getId(), epic.getId());
         assertEquals(testSubtasks, taskManager.getSubtasksValues(), "Метод удаления" +
                 " подзадачи работает некорректно");
@@ -121,7 +124,8 @@ class InMemoryTaskManagerTest {
     @Test
     void checkGetSubtask() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         assertEquals(subtask, taskManager.getSubtask(subtask.getId()));
     }
 
@@ -136,7 +140,8 @@ class InMemoryTaskManagerTest {
     @Test
     void checkDeleteSubtasks() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         taskManager.deleteSubtasks();
         assertEquals(testSubtasks ,taskManager.getSubtasksValues(), "Метод очищения списка" +
                 " подзадач работает некорректно");
@@ -162,7 +167,8 @@ class InMemoryTaskManagerTest {
     @Test
     void checkUpdateSubtask() {
         taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask, epic.getId());
+        subtask.setEpicId(epic.getId());
+        taskManager.addNewSubtask(subtask);
         taskManager.updateSubtask(subtask.getId(),"testSubtaskName2", "testSubtaskDescriptionTask2",
                 epic.getId(), Status.TaskStatus.DONE);
         assertEquals(taskManager.getSubtask(subtask.getId()), subtask, "Проблема" +

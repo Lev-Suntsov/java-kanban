@@ -5,12 +5,11 @@ import model.Task;
 import java.util.ArrayList;
 
 public class Managers {
-    public <T extends InMemoryHistoryManager> T getDefault(){
-        T object = (T) new InMemoryHistoryManager();
-        return object;
+    public static  TaskManager  getDefault(){
+        return new InMemoryTaskManager();
     }
-    public ArrayList<Task> getDefaultHistory(){
-        InMemoryHistoryManager iistoryManager = new InMemoryHistoryManager();
-        return iistoryManager.getHistory();
+    public static HistoryManager getDefaultHistory() {
+        return new InMemoryHistoryManager();
     }
+
 }

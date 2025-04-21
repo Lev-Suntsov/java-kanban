@@ -18,7 +18,7 @@ class EpicTest {
         epic = new Epic("Уборка дома", "Уборка");
         taskManager.addNewEpic(epic);
         subtask = new Subtask("Помыть посуду", "Беру губку", epic.getId());
-        taskManager.addNewSubtask(subtask, epic.getId());
+        taskManager.addNewSubtask(subtask);
     }
     @Test
     public  void checkGetSubtaskIds(){
