@@ -49,7 +49,9 @@ public class Task  {
     }
 
     public void setId(int id) {
+
         this.id = id;
+
     }
 
     public void setStatus(Status.TaskStatus status) {
