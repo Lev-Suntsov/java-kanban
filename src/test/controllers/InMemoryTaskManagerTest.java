@@ -188,8 +188,8 @@ class InMemoryTaskManagerTest {
     <T extends Task> void checkGetHistory() {
         taskManager.addNewTask(task);
         taskManager.getTask(task.getId());
-        ArrayList<Task> testHistory = new ArrayList<>();
-        testHistory.add(task);
+        ArrayList<Integer> testHistory = new ArrayList<>();
+        testHistory.add(task.getId());
         assertEquals(testHistory, taskManager.getHistory(), "Ошибка в сохранении " +
                 "истории просмотра");
 

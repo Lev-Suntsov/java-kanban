@@ -174,16 +174,12 @@ public class InMemoryTaskManager implements TaskManager {
         return epics.get(id).getStatus();
     }
     @Override
-    public ArrayList getHistory(){
+    public ArrayList getHistory() {
         ArrayList history = new ArrayList<>();
-        for(int i = 0; i< historyManager.getHistory().size(); i++){
-            if(epics.containsKey(historyManager.getHistory().get(i))) {
-                history.add(epics.get(historyManager.getHistory().get(i)));
-            } else if (tasks.containsKey(historyManager.getHistory().get(i))){
-                history.add(tasks.get(historyManager.getHistory().get(i)));
-            }
+        for (int i = 0; i < historyManager.getHistory().size(); i++) {
+            history.add(historyManager.getHistory().get(i));
         }
-        return  history;
+            return history;
     }
     @Override
     public String toString(){
