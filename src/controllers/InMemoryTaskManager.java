@@ -56,6 +56,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         tasks.remove(id);
+        if(historyManager.getHistory().contains(id)) {
+            historyManager.remove(id);
+        }
     }
     @Override
     public void removeEpicById(int id) {
@@ -67,6 +70,9 @@ public class InMemoryTaskManager implements TaskManager {
             }
         }
         epics.remove(id);
+        if(historyManager.getHistory().contains(id)) {
+            historyManager.remove(id);
+        }
     }
     @Override
     public void removeSubtaskById(int id, int epicId) {
@@ -82,7 +88,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTask(int id) {
         if(tasks.containsKey(id)) {
-            historyManager.add(tasks.get(id));
+            historyManager.add(id);
         }
         return tasks.get(id);
 
@@ -90,7 +96,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpic(int id) {
         if(epics.containsKey(id)) {
-            historyManager.getHistory().add(epics.get(id));
+            historyManager.add(id);
         }
         return epics.get(id);
     }
@@ -168,10 +174,14 @@ public class InMemoryTaskManager implements TaskManager {
         return epics.get(id).getStatus();
     }
     @Override
-    public ArrayList<Task> getHistory(){
-        ArrayList<Task> history = new ArrayList<>();
+    public ArrayList getHistory(){
+        ArrayList history = new ArrayList<>();
         for(int i = 0; i< historyManager.getHistory().size(); i++){
-            history.add((Task) historyManager.getHistory().get(i));
+            if(epics.containsKey(historyManager.getHistory().get(i))) {
+                history.add(epics.get(historyManager.getHistory().get(i)));
+            } else if (tasks.containsKey(historyManager.getHistory().get(i))){
+                history.add(tasks.get(historyManager.getHistory().get(i)));
+            }
         }
         return  history;
     }

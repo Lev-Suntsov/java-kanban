@@ -1,5 +1,6 @@
 package test;
 
+import controllers.InMemoryHistoryManager;
 import controllers.InMemoryTaskManager;
 import model.Epic;
 import model.Task;
@@ -120,6 +121,7 @@ public class Main {
 //        System.out.println("И после: " + taskManager.getEpicsValues().toString());
 //        System.out.println("Тесты закончены!!");
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         Task task = new Task("ecsafv", "sfaef0");
         Epic epic = new Epic("dfvdf", "21e");
         taskManager.addNewTask(task);
@@ -129,6 +131,9 @@ public class Main {
         for(int i = 0; i < taskManager.getHistory().size(); i++){
             System.out.println(taskManager.getHistory().get(i));
         }
-
+        taskManager.removeEpicById(epic.getId());
+        for(int i = 0; i < taskManager.getHistory().size(); i++){
+            System.out.println(taskManager.getHistory().get(i));
+        }
     }
 }

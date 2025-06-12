@@ -18,17 +18,17 @@ class InMemoryHistoryManagerTest {
     }
     @Test
     void checkAdd() {
-        inMemoryHistoryManager.add(task);
-        ArrayList<Task> testHistory = new ArrayList<>();
-        testHistory.add(task);
+        inMemoryHistoryManager.add(task.getId());
+        ArrayList<Integer> testHistory = new ArrayList<>();
+        testHistory.add(task.getId());
         assertEquals(testHistory, inMemoryHistoryManager.getHistory());
     }
 
     @Test
     void checkGetHistory() {
-        inMemoryHistoryManager.add(task);
-        ArrayList<Task> testHistory = new ArrayList<>();
-        testHistory.add(task);
+        inMemoryHistoryManager.add(task.getId());
+        ArrayList<Integer> testHistory = new ArrayList<>();
+        testHistory.add(task.getId());
         assertEquals(testHistory, inMemoryHistoryManager.getHistory());
     }
 }

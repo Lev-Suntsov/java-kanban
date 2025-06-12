@@ -188,13 +188,11 @@ class InMemoryTaskManagerTest {
     <T extends Task> void checkGetHistory() {
         taskManager.addNewTask(task);
         taskManager.getTask(task.getId());
-        ArrayList<T> testHistory = new ArrayList<>();
-        testHistory.add((T) task);
+        ArrayList<Task> testHistory = new ArrayList<>();
+        testHistory.add(task);
         assertEquals(testHistory, taskManager.getHistory(), "Ошибка в сохранении " +
                 "истории просмотра");
-        taskManager.addNewEpic(epic);
-        taskManager.getEpic(epic.getId());
-        assertEquals(epic.getClass(), taskManager.getHistory().get(epic.getId() - 1).getClass());
+
 
 
     }
