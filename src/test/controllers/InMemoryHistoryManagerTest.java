@@ -18,7 +18,7 @@ class InMemoryHistoryManagerTest {
     }
     @Test
     void checkAdd() {
-        inMemoryHistoryManager.add(task.getId());
+        inMemoryHistoryManager.add(task);
         ArrayList<Integer> testHistory = new ArrayList<>();
         testHistory.add(task.getId());
         assertEquals(testHistory, inMemoryHistoryManager.getHistory());
@@ -26,7 +26,7 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void checkGetHistory() {
-        inMemoryHistoryManager.add(task.getId());
+        inMemoryHistoryManager.add(task);
         ArrayList<Integer> testHistory = new ArrayList<>();
         testHistory.add(task.getId());
         assertEquals(testHistory, inMemoryHistoryManager.getHistory());

@@ -1,64 +1,54 @@
 package controllers;
-
 import model.Task;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.*;
 public class InMemoryHistoryManager implements  HistoryManager{
     private ArrayList<Integer> tasks = new ArrayList<>();
-    List tasksLinkedList = new LinkedList();
-    HashMap<Integer, Node> taskPlaysInLinkedList = new HashMap<>();
+    HashMap<Integer, Node> nodeMap = new HashMap<>();
+    Node last;
+    Node first;
     @Override
-    public void add(int id){
-        if (id == 0){
+    public void add(Task task){
+        if(task == null){
             return;
         }
-        if(tasks.size() > 10){
-            ArrayList<Integer> tasks2 = new ArrayList<>();
-            for(int i = tasks.size() - 10; i < tasks.size(); i++){
-                tasks2.add(tasks.get(i));
-            }
-            tasks = tasks2;
+        if (nodeMap.containsValue(task)){
+            removeNode(task.getId());
         }
-        linkLast(id);
+        linkLast(task);
+        nodeMap.put(task.getId(), last);
     }
     @Override
     public void remove(int id) {
-        removeNode(taskPlaysInLinkedList.get(id));
+        removeNode(id);
     }
     @Override
-    public ArrayList getHistory(){
+    public ArrayList<Integer> getHistory(){
+        getTasks();
         return tasks;
     }
     @Override
     public String toString(){
         return "Класс HistoryManager";
     }
-    public void linkLast(int id){
-        if(taskPlaysInLinkedList.containsKey(id)){
-            removeNode(taskPlaysInLinkedList.get(id));
+    public void linkLast(Task task){
+        final Node node = new Node(task, last, null);
+        if(first == null){
+            first = node;
+        } else{
+            last.next = node;
         }
-        tasksLinkedList.addLast(id);
-        Node node = new Node(tasksLinkedList.size() - 1);
-        add(id, node);
-        getTasks();
+        last = node;
     }
     public void getTasks(){
-        ArrayList tasksLinkedListToArrayList = new ArrayList<>();
-        for (int i = 0; i < tasksLinkedList.size(); i++){
-            tasksLinkedListToArrayList.add(tasksLinkedList.get(i));
+        ArrayList<Integer> tasksLinkedListToArrayList = new ArrayList<>();
+        for (Integer i : nodeMap.keySet()){
+            tasksLinkedListToArrayList.add(i);
         }
         tasks = tasksLinkedListToArrayList;
     }
-    public void add(int id, Node node){
-        taskPlaysInLinkedList.put(id, node);
-    }
-    public void removeNode (Node node){
-        tasks.remove(tasksLinkedList.get(node.place));
-        taskPlaysInLinkedList.remove(tasksLinkedList.get(node.place));
-        tasksLinkedList.remove(node.place);
+    public void removeNode (int id){
+        tasks.remove(nodeMap.get(id));
+        nodeMap.remove(id);
+
     }
 }

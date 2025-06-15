@@ -1,10 +1,14 @@
 package controllers;
 
-import java.util.HashMap;
+import model.Task;
 
 public class Node {
-    int place;
-    Node(int place){
-        this.place = place;
+    Task task;
+    Node last;
+    Node next;
+    Node(Task task, Node last, Node next){
+        this.task = task;
+        this.last = last;
+        this.next = next;
     }
 }
