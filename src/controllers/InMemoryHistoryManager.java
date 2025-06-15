@@ -30,7 +30,7 @@ public class InMemoryHistoryManager implements  HistoryManager{
     public String toString(){
         return "Класс HistoryManager";
     }
-    public void linkLast(Task task){
+    private void linkLast(Task task){
         final Node node = new Node(task, last, null);
         if(first == null){
             first = node;
@@ -39,14 +39,14 @@ public class InMemoryHistoryManager implements  HistoryManager{
         }
         last = node;
     }
-    public void getTasks(){
+    private void getTasks(){
         ArrayList<Integer> tasksLinkedListToArrayList = new ArrayList<>();
         for (Integer i : nodeMap.keySet()){
             tasksLinkedListToArrayList.add(i);
         }
         tasks = tasksLinkedListToArrayList;
     }
-    public void removeNode (int id){
+    private void removeNode (int id){
         tasks.remove(nodeMap.get(id));
         nodeMap.remove(id);
 
