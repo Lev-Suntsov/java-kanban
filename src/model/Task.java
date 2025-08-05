@@ -1,13 +1,14 @@
 package model;
 
 import java.util.Objects;
-public class Task  {
+
+public class Task {
     private String name;
     private String description;
     private int id;
     private Status.TaskStatus status;
 
-    public Task(String name, String description){
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
         id = name.hashCode();
@@ -27,16 +28,19 @@ public class Task  {
         return Objects.hashCode(id);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public  Status.TaskStatus getStatus(){
+
+    public Status.TaskStatus getStatus() {
         return status;
     }
 

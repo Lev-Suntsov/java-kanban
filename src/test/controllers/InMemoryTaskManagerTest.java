@@ -5,6 +5,7 @@ import controllers.TaskManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import model.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ class InMemoryTaskManagerTest {
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
         taskManager.deleteSubtasks();
-        assertEquals(testSubtasks ,taskManager.getSubtasksValues(), "Метод очищения списка" +
+        assertEquals(testSubtasks, taskManager.getSubtasksValues(), "Метод очищения списка" +
                 " подзадач работает некорректно");
     }
 
@@ -158,7 +159,7 @@ class InMemoryTaskManagerTest {
     @Test
     void checkUpdateTask() {
         taskManager.addNewTask(task);
-        taskManager.updateTask(task.getId(),"testTaskName2", "testTaskDescriptionTask2",
+        taskManager.updateTask(task.getId(), "testTaskName2", "testTaskDescriptionTask2",
                 Status.TaskStatus.DONE);
         assertEquals(taskManager.getTask(task.getId()), task, "Ошибка в " +
                 "обновлении задачи");
@@ -169,7 +170,7 @@ class InMemoryTaskManagerTest {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
-        taskManager.updateSubtask(subtask.getId(),"testSubtaskName2", "testSubtaskDescriptionTask2",
+        taskManager.updateSubtask(subtask.getId(), "testSubtaskName2", "testSubtaskDescriptionTask2",
                 epic.getId(), Status.TaskStatus.DONE);
         assertEquals(taskManager.getSubtask(subtask.getId()), subtask, "Проблема" +
                 " с обновлением подзадачи");
@@ -180,7 +181,7 @@ class InMemoryTaskManagerTest {
         Epic testEpic = new Epic("testEpicName2", "testEpicDescriptionTask2");
         taskManager.addNewEpic(epic);
         taskManager.updateEpic(epic.getId(), testEpic.getName(), testEpic.getDescription());
-        assertEquals(epic , taskManager.getEpic(epic.getId()), "Проблема" +
+        assertEquals(epic, taskManager.getEpic(epic.getId()), "Проблема" +
                 " с обновлением эпика");
     }
 
@@ -192,7 +193,6 @@ class InMemoryTaskManagerTest {
         testHistory.add(task);
         assertEquals(testHistory, taskManager.getHistory(), "Ошибка в сохранении " +
                 "истории просмотра");
-
 
 
     }

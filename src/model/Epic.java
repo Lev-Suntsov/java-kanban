@@ -1,11 +1,13 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
     private ArrayList<Integer> subtaskIds = new ArrayList<>();
-   public Epic(String name, String dedescription){
-        super(name,dedescription );
+
+    public Epic(String name, String dedescription) {
+        super(name, dedescription);
         this.setName(name);
         this.setDescription(dedescription);
         this.setId(name.hashCode());
@@ -13,7 +15,7 @@ public class Epic extends Task {
         System.out.println("Успешно добавлено");
     }
 
-    public  void cleanSubtaskIds(){
+    public void cleanSubtaskIds() {
         subtaskIds.clear();
     }
 
@@ -42,7 +44,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        if (subtaskIds.isEmpty()){
+        if (subtaskIds.isEmpty()) {
             return "model.Epic{" + "name='" + getName() + '\'' +
                     ", description='" + getDescription() + '\'' +
                     ", id=" + getId() +
@@ -53,7 +55,7 @@ public class Epic extends Task {
                     ", description='" + getDescription() + '\'' +
                     ", id=" + getId() +
                     ", status=" + getStatus() +
-                    ", idSubtask=" +    subtaskIds +
+                    ", idSubtask=" + subtaskIds +
                     '}';
         }
     }

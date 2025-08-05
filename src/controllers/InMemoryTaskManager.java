@@ -23,6 +23,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.put(id, task);
         return id;
     }
+
     @Override
     public int addNewEpic(Epic epic) {
         final int id = ++generatorId;
@@ -30,6 +31,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics.put(id, epic);
         return id;
     }
+
     @Override
     public int addNewSubtask(Subtask subtask) {
         final int id = ++generatorId;
@@ -44,10 +46,12 @@ public class InMemoryTaskManager implements TaskManager {
     public ArrayList<Task> getTasksValues() {
         return new ArrayList<>(tasks.values());
     }
+
     @Override
     public ArrayList<Epic> getEpicsValues() {
         return new ArrayList<>(epics.values());
     }
+
     @Override
     public ArrayList<Subtask> getSubtasksValues() {
         return new ArrayList<>(subtasks.values());
@@ -56,10 +60,11 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         tasks.remove(id);
-        if(historyManager.getHistory().contains(id)) {
+        if (historyManager.getHistory().contains(id)) {
             historyManager.remove(id);
         }
     }
+
     @Override
     public void removeEpicById(int id) {
         for (int subtaskId : subtasks.keySet()) {
@@ -70,10 +75,11 @@ public class InMemoryTaskManager implements TaskManager {
             }
         }
         epics.remove(id);
-        if(historyManager.getHistory().contains(id)) {
+        if (historyManager.getHistory().contains(id)) {
             historyManager.remove(id);
         }
     }
+
     @Override
     public void removeSubtaskById(int id, int epicId) {
         subtasks.remove(id);
@@ -87,22 +93,24 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTask(int id) {
-        if(tasks.containsKey(id)) {
+        if (tasks.containsKey(id)) {
             historyManager.add(tasks.get(id));
         }
         return tasks.get(id);
 
     }
+
     @Override
     public Epic getEpic(int id) {
-        if(epics.containsKey(id)) {
+        if (epics.containsKey(id)) {
             historyManager.add(tasks.get(id));
         }
         return epics.get(id);
     }
+
     @Override
     public Subtask getSubtask(int id) {
-        if(subtasks.containsKey(id)) {
+        if (subtasks.containsKey(id)) {
             historyManager.add(subtasks.get(id));
         }
         return subtasks.get(id);
@@ -112,6 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteTasks() {
         tasks.clear();
     }
+
     @Override
     public void deleteSubtasks() {
         for (Epic epic : epics.values()) {
@@ -120,6 +129,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         subtasks.clear();
     }
+
     @Override
     public void deleteEpics() {
         epics.clear();
@@ -132,6 +142,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.get(id).setName(name);
         tasks.get(id).setDescription(description);
     }
+
     @Override
     public void updateSubtask(int id, String name, String description, int epicId, Status.TaskStatus status) {
         subtasks.get(id).setName(name);
@@ -139,11 +150,13 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.get(id).setStatus(status);
         updateEpicStatus(epicId);
     }
+
     @Override
     public void updateEpic(int id, String name, String decdription) {
         epics.get(id).setName(name);
         epics.get(id).setDescription(decdription);
     }
+
     @Override
     public Status.TaskStatus updateEpicStatus(int id) {
         for (int i = 0; i < epics.get(id).getSubtaskIds().size(); i++) {
@@ -173,16 +186,18 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return epics.get(id).getStatus();
     }
+
     @Override
     public ArrayList getHistory() {
         ArrayList history = new ArrayList<>();
         for (int i = 0; i < historyManager.getHistory().size(); i++) {
             history.add(historyManager.getHistory().get(i));
         }
-            return history;
+        return history;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "controllers.InMemoryTaskManager";
     }
 }

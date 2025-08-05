@@ -128,11 +128,11 @@ public class Main {
         taskManager.addNewEpic(epic);
         taskManager.getTask(task.getId());
         taskManager.getEpic(epic.getId());
-        for(int i = 0; i < taskManager.getHistory().size(); i++){
+        for (int i = 0; i < taskManager.getHistory().size(); i++) {
             System.out.println(taskManager.getHistory().get(i));
         }
         taskManager.removeEpicById(epic.getId());
-        for(int i = 0; i < taskManager.getHistory().size(); i++){
+        for (int i = 0; i < taskManager.getHistory().size(); i++) {
             System.out.println(taskManager.getHistory().get(i));
         }
     }

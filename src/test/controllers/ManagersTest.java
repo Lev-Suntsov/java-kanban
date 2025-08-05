@@ -4,7 +4,7 @@ import controllers.InMemoryHistoryManager;
 import controllers.InMemoryTaskManager;
 import controllers.Managers;
 import org.junit.jupiter.api.Test;
-import  model.Task;
+import model.Task;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ class ManagersTest {
     void checkGetDefault() {
         Managers managers = new Managers();
         InMemoryTaskManager test = new InMemoryTaskManager();
-        assertEquals( test.toString(), managers.getDefault().toString(),
+        assertEquals(test.toString(), managers.getDefault().toString(),
                 "Проверьте метод getDefault()");
     }
 
