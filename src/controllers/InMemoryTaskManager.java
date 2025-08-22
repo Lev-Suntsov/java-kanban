@@ -163,8 +163,7 @@ public class InMemoryTaskManager implements TaskManager {
             if (subtasks.get(epics.get(id).getSubtaskIds().get(i)).getStatus() == Status.TaskStatus.NEW) {
                 epics.get(id).setStatus(Status.TaskStatus.NEW);
                 if (i + 1 < epics.get(id).getSubtaskIds().size()) {
-                    if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() ==
-                            Status.TaskStatus.NEW) {
+                    if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() == Status.TaskStatus.NEW) {
                         epics.get(id).setStatus(Status.TaskStatus.NEW);
                     } else {
                         epics.get(id).setStatus(Status.TaskStatus.IN_PROGRESS);
@@ -172,8 +171,7 @@ public class InMemoryTaskManager implements TaskManager {
                 }
             } else if (subtasks.get(epics.get(id).getSubtaskIds().get(i)).getStatus() == Status.TaskStatus.DONE) {
                 if (i + 1 < epics.get(id).getSubtaskIds().size()) {
-                    if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() ==
-                            Status.TaskStatus.DONE) {
+                    if (subtasks.get(epics.get(id).getSubtaskIds().get(i + 1)).getStatus() == Status.TaskStatus.DONE) {
                         epics.get(id).setStatus(Status.TaskStatus.DONE);
                     } else {
                         epics.get(id).setStatus(Status.TaskStatus.IN_PROGRESS);
