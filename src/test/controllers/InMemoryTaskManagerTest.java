@@ -8,6 +8,7 @@ import model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 class InMemoryTaskManagerTest {
@@ -32,21 +33,21 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkAddNewTask() {
+    void checkAddNewTask() throws IOException {
         taskManager.addNewTask(task);
         assertEquals(task, taskManager.getTask(task.getId()), "В методе добавления" +
                 " задачи допущена ошибка");
     }
 
     @Test
-    void checkAddNewEpic() {
+    void checkAddNewEpic() throws IOException {
         taskManager.addNewEpic(epic);
         assertEquals(epic, taskManager.getEpic(epic.getId()), "В методе добавления" +
                 " Эпика допущена ошибка");
     }
 
     @Test
-    void checkAddNewSubtask() {
+    void checkAddNewSubtask() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -55,7 +56,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkGetTasksValues() {
+    void checkGetTasksValues() throws IOException{
         taskManager.addNewTask(task);
         testTasks.add(task);
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод получения" +
@@ -63,7 +64,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkGetEpicsValues() {
+    void checkGetEpicsValues() throws  IOException{
         taskManager.addNewEpic(epic);
         testEpics.add(epic);
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод получения" +
@@ -71,7 +72,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkGetSubtasksValues() {
+    void checkGetSubtasksValues() throws  IOException{
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -81,7 +82,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkRemoveTaskById() {
+    void checkRemoveTaskById() throws  IOException{
         taskManager.addNewTask(task);
         taskManager.removeTaskById(task.getId());
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод удаления" +
@@ -89,7 +90,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkRemoveEpicById() {
+    void checkRemoveEpicById() throws  IOException{
         taskManager.addNewEpic(epic);
         taskManager.removeEpicById(epic.getId());
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод удаления" +
@@ -97,7 +98,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void chekRemoveSubtaskById() {
+    void chekRemoveSubtaskById() throws  IOException{
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -109,21 +110,22 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkGetTask() {
+    void checkGetTask() throws IOException{
         taskManager.addNewTask(task);
         assertEquals(task, taskManager.getTask(task.getId()), "Метод получения " +
                 "задачи работает некорректно");
     }
 
     @Test
-    void checkGetEpic() {
+    void checkGetEpic() throws  IOException
+    {
         taskManager.addNewEpic(epic);
         assertEquals(epic, taskManager.getEpic(epic.getId()), "Метод получения " +
                 "эпика работает некорректно");
     }
 
     @Test
-    void checkGetSubtask() {
+    void checkGetSubtask() throws  IOException{
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -131,7 +133,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkDeleteTasks() {
+    void checkDeleteTasks() throws  IOException{
         taskManager.addNewTask(task);
         taskManager.deleteTasks();
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод очищения списка" +
@@ -139,7 +141,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkDeleteSubtasks() {
+    void checkDeleteSubtasks() throws  IOException{
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -149,7 +151,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkDeleteEpics() {
+    void checkDeleteEpics() throws  IOException{
         taskManager.addNewEpic(epic);
         taskManager.deleteEpics();
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод очищения списка" +
@@ -157,7 +159,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkUpdateTask() {
+    void checkUpdateTask() throws  IOException{
         taskManager.addNewTask(task);
         taskManager.updateTask(task.getId(), "testTaskName2", "testTaskDescriptionTask2",
                 Status.TaskStatus.DONE);
@@ -166,7 +168,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkUpdateSubtask() {
+    void checkUpdateSubtask() throws  IOException{
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -177,7 +179,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkUpdateEpic() {
+    void checkUpdateEpic() throws  IOException{
         Epic testEpic = new Epic("testEpicName2", "testEpicDescriptionTask2");
         taskManager.addNewEpic(epic);
         taskManager.updateEpic(epic.getId(), testEpic.getName(), testEpic.getDescription());
@@ -186,7 +188,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    <T extends Task> void checkGetHistory() {
+    <T extends Task> void checkGetHistory() throws IOException{
         taskManager.addNewTask(task);
         taskManager.getTask(task.getId());
         ArrayList<Task> testHistory = new ArrayList<>();

@@ -6,6 +6,8 @@ import model.Subtask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SubtaskTest {
@@ -14,7 +16,7 @@ class SubtaskTest {
     Epic epic;
 
     @BeforeEach
-    public void createSubtaskForeTest() {
+    public void createSubtaskForeTest() throws IOException {
         epic = new Epic("Уборка дома", "Уборка");
         taskManager.addNewEpic(epic);
         subtask = new Subtask("Помыть посуду", "Беру губку", epic.getId());

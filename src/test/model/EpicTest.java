@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 import  controllers.InMemoryTaskManager;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 class EpicTest {
@@ -14,14 +16,14 @@ class EpicTest {
     Subtask subtask;
     Epic epic;
     @BeforeEach
-    public void creatEpic(){
+    public void creatEpic()throws IOException {
         epic = new Epic("Уборка дома", "Уборка");
         taskManager.addNewEpic(epic);
         subtask = new Subtask("Помыть посуду", "Беру губку", epic.getId());
         taskManager.addNewSubtask(subtask);
     }
     @Test
-    public  void checkGetSubtaskIds(){
+    public  void checkGetSubtaskIds() throws IOException{
         ArrayList<Integer> testSubtaskIds= new ArrayList<>();
         testSubtaskIds.add(subtask.getId());
         assertEquals(testSubtaskIds, epic.getSubtaskIds(), "id не совпадают");

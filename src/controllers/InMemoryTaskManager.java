@@ -5,6 +5,7 @@ import model.Status;
 import model.Subtask;
 import model.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +18,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
-    public int addNewTask(Task task) {
+    public int addNewTask(Task task) throws IOException {
         final int id = ++generatorId;
         task.setId(id);
         tasks.put(id, task);
@@ -25,7 +26,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public int addNewEpic(Epic epic) {
+    public int addNewEpic(Epic epic) throws  IOException{
         final int id = ++generatorId;
         epic.setId(id);
         epics.put(id, epic);
@@ -33,7 +34,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public int addNewSubtask(Subtask subtask) {
+    public int addNewSubtask(Subtask subtask) throws  IOException{
         final int id = ++generatorId;
         subtask.setId(id);
         subtasks.put(id, subtask);

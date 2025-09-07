@@ -5,8 +5,10 @@ import controllers.InMemoryTaskManager;
 import model.Epic;
 import model.Task;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        System.out.println("Поехали!");
 //        TaskManager taskManager = new TaskManager();
 //        Scanner scanner = new Scanner(System.in);

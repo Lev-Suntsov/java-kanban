@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -10,11 +11,11 @@ import model.Task;
 import model.Subtask;
 
 public interface TaskManager {
-    int addNewTask(Task task);
+    int addNewTask(Task task) throws IOException;
 
-    int addNewEpic(Epic epic);
+    int addNewEpic(Epic epic) throws IOException;
 
-    int addNewSubtask(Subtask subtask);
+    int addNewSubtask(Subtask subtask) throws  IOException;
 
 
     ArrayList<Task> getTasksValues();
