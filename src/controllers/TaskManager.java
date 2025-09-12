@@ -11,11 +11,11 @@ import model.Task;
 import model.Subtask;
 
 public interface TaskManager {
-    int addNewTask(Task task) throws IOException;
+    void addNewTask(Task task) throws IOException;
 
-    int addNewEpic(Epic epic) throws IOException;
+    void addNewEpic(Epic epic) throws IOException;
 
-    int addNewSubtask(Subtask subtask) throws  IOException;
+    void addNewSubtask(Subtask subtask) throws  IOException;
 
 
     ArrayList<Task> getTasksValues();
@@ -25,11 +25,11 @@ public interface TaskManager {
     ArrayList<Subtask> getSubtasksValues();
 
 
-    void removeTaskById(int id);
+    void removeTaskById(int id) throws  IOException;
 
-    void removeEpicById(int id);
+    void removeEpicById(int id) throws  IOException;
 
-    void removeSubtaskById(int id, int epicId);
+    void removeSubtaskById(int id, int epicId) throws IOException;
 
 
     Task getTask(int id);

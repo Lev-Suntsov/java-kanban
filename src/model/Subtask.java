@@ -42,12 +42,12 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "model.Subtask{" +
-                "name= '" + getName() + '\'' +
-                ", description= '" + getDescription() + '\'' +
-                ", id= " + getId() +
-                ", status= " + getStatus() +
-                "apicId= " + epicId +
+        return "model: Subtask, " +
+                "name:  " + getName() +
+                ", description: " + getDescription() +
+                ", id: " + getId() +
+                ", status: " + getStatus() +
+                "apicId: " + epicId +
                 '}';
     }
 }

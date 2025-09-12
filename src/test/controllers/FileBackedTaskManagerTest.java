@@ -57,8 +57,9 @@ public  class FileBackedTaskManagerTest {
 
     @Test
     public void checkAddNewSubtask() throws IOException {
+        manager.addNewEpic(testEpic);
         Subtask testSubtask = new Subtask("Тестовая подзадача", "Проводится тест добавления подзадачи",
-                manager.addNewEpic(testEpic));
+                testEpic.getId());
         manager.addNewSubtask(testSubtask);
         File testSubtaskFile = File.createTempFile("testSubtask", "txt");
         try(Writer writer = new FileWriter(testSubtaskFile)){
@@ -74,4 +75,5 @@ public  class FileBackedTaskManagerTest {
         }
     }
 }
+
 

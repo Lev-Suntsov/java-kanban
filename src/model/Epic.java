@@ -51,11 +51,11 @@ public class Epic extends Task {
                     ", status=" + getStatus() +
                     "idSubtask= 0}";
         } else {
-            return "model.Epic{" + "name='" + getName() + '\'' +
-                    ", description='" + getDescription() + '\'' +
-                    ", id=" + getId() +
-                    ", status=" + getStatus() +
-                    ", idSubtask=" + subtaskIds +
+            return "model: Epic, " + "name: '" + getName() +
+                    ", description: " + getDescription() +
+                    ", id: " + getId() +
+                    ", status: " + getStatus() +
+                    ", idSubtask: " + subtaskIds +
                     '}';
         }
     }
