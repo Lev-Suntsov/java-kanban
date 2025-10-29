@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public interface TaskManager {
 
     void addNewEpic(Epic epic) throws IOException;
 
-    void addNewSubtask(Subtask subtask) throws  IOException;
+    void addNewSubtask(Subtask subtask) throws IOException;
 
 
     ArrayList<Task> getTasksValues();
@@ -25,9 +27,9 @@ public interface TaskManager {
     ArrayList<Subtask> getSubtasksValues();
 
 
-    void removeTaskById(int id) throws  IOException;
+    void removeTaskById(int id) throws IOException;
 
-    void removeEpicById(int id) throws  IOException;
+    void removeEpicById(int id) throws IOException;
 
     void removeSubtaskById(int id, int epicId) throws IOException;
 
@@ -55,7 +57,6 @@ public interface TaskManager {
     Status.TaskStatus updateEpicStatus(int id);
 
     ArrayList<Task> getHistory();
-
 }
 
 

@@ -2,10 +2,15 @@ package model;
 
 import controllers.InMemoryTaskManager;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Subtask extends Task {
+    public Duration duration;
+    public LocalDateTime startTime;
     public int getEpicId() {
         return epicId;
     }
@@ -13,17 +18,17 @@ public class Subtask extends Task {
     public void setEpicId(int epicId) {
         this.epicId = epicId;
     }
-
     private int epicId;
 
-    public Subtask(String name, String description, int epicId) {
-        super(name, description);
+    public Subtask(String name, String description, int epicId, LocalDateTime startTime, Duration duration) {
+        super(name, description, startTime, duration);
         this.setName(name);
         this.setDescription(description);
         this.setId(name.hashCode());
         this.setStatus(Status.TaskStatus.NEW);
         this.epicId = epicId;
-
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     @Override
@@ -48,7 +53,14 @@ public class Subtask extends Task {
                 ", id: " + getId() +
                 ", status: " + getStatus() +
                 "apicId: " + epicId +
+                ", startTime: " +startTime.getYear() + "." + startTime.getMonth()
+                + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
+                ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
                 '}';
+    }
+    public LocalDateTime getEndTime(){
+        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
+                plusMinutes(duration.toMinutes());
     }
 }
 

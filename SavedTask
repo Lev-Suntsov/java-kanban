@@ -1,1 +1,1 @@
-model.Task{name='Привет', description='Это тестовое описание', id=1, status=NEW}
+model.Task{name='Привет', description='Это тестовое описание', id=1, status=NEW, startTime: 2025.OCTOBER.17.12.40, duriator: 0.0.0}

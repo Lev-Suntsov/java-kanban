@@ -6,38 +6,73 @@ import model.Subtask;
 import model.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
     private int generatorId = 0;
-
+    private Scanner scanner = new Scanner(System.in);
+    StartTimeComporator comporator = new StartTimeComporator();
+    private TreeSet<Task> sortTask= new TreeSet(comporator);
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public void addNewTask(Task task) throws IOException {
-        final int id = ++generatorId;
-        task.setId(id);
-        tasks.put(id, task);
+        if(!intersectionStartTime(task)){
+            final int id = ++generatorId;
+            task.setId(id);
+            tasks.put(id, task);
+            sortTask.add(task);
+        }
     }
 
     @Override
-    public void addNewEpic(Epic epic) throws  IOException{
+    public void addNewEpic(Epic epic) throws  IOException {
         final int id = ++generatorId;
         epic.setId(id);
         epics.put(id, epic);
+        if (!subtasks.isEmpty()) {
+            LocalDateTime startTime = subtasks.get(epic.getSubtaskIds().getFirst()).startTime;
+            Duration duration = Duration.ofDays(0);
+            for (int i : epic.getSubtaskIds()) {
+                if (subtasks.containsValue(i)) {
+                    if (subtasks.get(i).startTime.isBefore(startTime)) {
+                        startTime = subtasks.get(i).startTime;
+                    }
+                    duration = subtasks.get(i).duration.plusDays(duration.toDays()).plusHours(
+                            duration.toHours()).plusMinutes(duration.toMinutes());
+                }
+            }
+            epic.startTime = startTime;
+            epic.duration = duration;
+        }
+        if (!subtasks.isEmpty()) {
+            epic.setEndTime(subtasks.get(epic.getSubtaskIds().getLast()).getEndTime());
+        }
     }
 
     @Override
     public void addNewSubtask(Subtask subtask) throws  IOException{
-        final int id = ++generatorId;
-        subtask.setId(id);
-        subtasks.put(id, subtask);
-        epics.get(subtask.getEpicId()).getSubtaskIds().add(id);
-        updateEpicStatus(subtask.getEpicId());
+        if(!intersectionStartTime(subtask)){
+            final int id = ++generatorId;
+            subtask.setId(id);
+            sortTask.add(subtask);
+            subtasks.put(id, subtask);
+            epics.get(subtask.getEpicId()).getSubtaskIds().add(id);
+            updateEpicStatus(subtask.getEpicId());
+            if(epics.get(subtask.getEpicId()).getSubtaskIds().size() == 1){
+                epics.get(subtask.getEpicId()).startTime = subtask.startTime;
+                epics.get(subtask.getEpicId()).setEndTime(subtask.getEndTime());
+            }else if (subtask.startTime.isBefore(epics.get(subtask.getEpicId()).startTime)){
+                epics.get(subtask.getEpicId()).startTime = subtask.startTime;
+            }else if(subtask.getEndTime().isAfter(epics.get(subtask.getEpicId()).getEndTime())){
+                epics.get(subtask.getEpicId()).setEndTime(subtask.getEndTime());
+            }
+        }
     }
 
     @Override
@@ -191,9 +226,23 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return history;
     }
-
     @Override
     public String toString() {
         return "controllers.InMemoryTaskManager";
+    }
+    public TreeSet<Task> getPrioritizedTasks(){
+        return sortTask;
+    }
+    public Boolean intersectionStartTime(Task task) {
+        boolean isintersection = false;
+        if(!getPrioritizedTasks().isEmpty()) {
+            for (Task e : getPrioritizedTasks()) {
+                if ((e.startTime.isAfter(task.startTime) && e.getEndTime().isBefore(task.getEndTime())) || e.startTime.equals(task.startTime)) {
+                    isintersection = true;
+                    break;
+                }
+            }
+        }
+        return isintersection;
     }
 }
