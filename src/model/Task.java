@@ -1,17 +1,24 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
-public class Task  {
+
+public class Task {
     private String name;
     private String description;
     private int id;
     private Status.TaskStatus status;
+    private Duration duration;
+    public LocalDateTime startTime;
 
-    public Task(String name, String description){
+    public Task(String name, String description, LocalDateTime startTime, Duration duration) {
         this.name = name;
         this.description = description;
         id = name.hashCode();
         status = Status.TaskStatus.NEW;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     @Override
@@ -27,16 +34,19 @@ public class Task  {
         return Objects.hashCode(id);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public  Status.TaskStatus getStatus(){
+
+    public Status.TaskStatus getStatus() {
         return status;
     }
 
@@ -65,6 +75,14 @@ public class Task  {
                 ", description='" + description + '\'' +
                 ", id=" + id +
                 ", status=" + status +
+                ", startTime: " +startTime.getYear() + "." + startTime.getMonth()
+                + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
+                ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
                 '}';
     }
+    public LocalDateTime getEndTime(){
+        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
+                plusMinutes(duration.toMinutes());
+    }
+
 }

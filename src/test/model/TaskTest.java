@@ -9,12 +9,17 @@ import  controllers.InMemoryTaskManager;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 class TaskTest {
     Task task;
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
     @BeforeEach
-    void creatTestTask(){
-        task = new Task("testTaskName", "testTaskDescription");
+    void creatTestTask()throws IOException {
+        task = new Task("testTaskName", "testTaskDescription", LocalDateTime.now(),
+                Duration.ZERO);
         taskManager.addNewTask(task);
     }
 
