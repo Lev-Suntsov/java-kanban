@@ -11,6 +11,7 @@ import model.Epic;
 import model.Status;
 import model.Task;
 import model.Subtask;
+import netscape.javascript.JSObject;
 
 public interface TaskManager {
     void addNewTask(Task task) throws IOException;
@@ -18,7 +19,6 @@ public interface TaskManager {
     void addNewEpic(Epic epic) throws IOException;
 
     void addNewSubtask(Subtask subtask) throws IOException;
-
 
     ArrayList<Task> getTasksValues();
 
