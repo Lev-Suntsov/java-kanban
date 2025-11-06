@@ -230,10 +230,12 @@ public class InMemoryTaskManager implements TaskManager {
     public String toString() {
         return "controllers.InMemoryTaskManager";
     }
+    @Override
     public TreeSet<Task> getPrioritizedTasks(){
         return sortTask;
     }
-    public Boolean intersectionStartTime(Task task) {
+    @Override
+    public boolean intersectionStartTime(Task task) {
         boolean isintersection = false;
         if(!getPrioritizedTasks().isEmpty()) {
             for (Task e : getPrioritizedTasks()) {

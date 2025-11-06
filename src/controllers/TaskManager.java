@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 import model.Epic;
 import model.Status;
@@ -57,6 +55,10 @@ public interface TaskManager {
     Status.TaskStatus updateEpicStatus(int id);
 
     ArrayList<Task> getHistory();
+
+    boolean intersectionStartTime(Task task);
+
+    TreeSet<Task> getPrioritizedTasks();
 }
 
 
