@@ -1,4 +1,5 @@
 package test.controllers;
+
 import controllers.FileBackedTaskManager;
 import exceptions.ManagerSaveExeption;
 import model.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public  class FileBackedTaskManagerTest extends TaskMenegerTest {
+public class FileBackedTaskManagerTest extends TaskMenegerTest {
     static FileBackedTaskManager manager;
     Epic testEpic;
 
@@ -22,6 +23,7 @@ public  class FileBackedTaskManagerTest extends TaskMenegerTest {
         manager = new FileBackedTaskManager();
         testEpic = new Epic("Тестовый эпик", "Всего лишь тест ", LocalDateTime.now(), Duration.ZERO);
     }
+
     @Test
     public void testException() {
         Assertions.assertThrows(ManagerSaveExeption.class, () -> {
@@ -73,13 +75,13 @@ public  class FileBackedTaskManagerTest extends TaskMenegerTest {
                 testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
         manager.addNewSubtask(testSubtask);
         File testSubtaskFile = File.createTempFile("testSubtask", "txt");
-        try(Writer writer = new FileWriter(testSubtaskFile)){
-           writer.write(testSubtask.toString());
+        try (Writer writer = new FileWriter(testSubtaskFile)) {
+            writer.write(testSubtask.toString());
         }
-        try(Reader fileReader = new FileReader(testSubtaskFile)){
+        try (Reader fileReader = new FileReader(testSubtaskFile)) {
             StringBuilder stringFromTestSubtaskFile = new StringBuilder();
             int ch;
-            while((ch = fileReader.read()) != -1){
+            while ((ch = fileReader.read()) != -1) {
                 stringFromTestSubtaskFile.append((char) ch);
             }
             assertEquals(testSubtask.toString(), stringFromTestSubtaskFile.toString());

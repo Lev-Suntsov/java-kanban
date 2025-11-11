@@ -75,12 +75,13 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", id=" + id +
                 ", status=" + status +
-                ", startTime: " +startTime.getYear() + "." + startTime.getMonth()
+                ", startTime: " + startTime.getYear() + "." + startTime.getMonth()
                 + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
                 ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
                 '}';
     }
-    public LocalDateTime getEndTime(){
+
+    public LocalDateTime getEndTime() {
         return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
                 plusMinutes(duration.toMinutes());
     }

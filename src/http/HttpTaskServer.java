@@ -1,4 +1,5 @@
 package http;
+
 import com.sun.net.httpserver.HttpServer;
 import controllers.Managers;
 
@@ -12,9 +13,9 @@ public class HttpTaskServer {
     private final Managers managers;
 
     public HttpTaskServer(Managers managers) throws IOException {
-            this.managers = managers;
-            server = HttpServer.create(new InetSocketAddress(PORT), 0);
-            server.createContext("/tasks", new TaskHandler(managers));
+        this.managers = managers;
+        server = HttpServer.create(new InetSocketAddress(PORT), 0);
+        server.createContext("/tasks", new TaskHandler(managers));
         server.createContext("/tasks", new TaskHandler(managers));
         server.createContext("/subtasks", new SubtasksHandler(managers));
         server.createContext("/epics", new EpicHandler(managers));

@@ -8,8 +8,9 @@ import java.util.Objects;
 public class Epic extends Task {
     private ArrayList<Integer> subtaskIds = new ArrayList<>();
     public LocalDateTime startTime;
-    public  Duration duration;
+    public Duration duration;
     private LocalDateTime endTime;
+
     public Epic(String name, String dedescription, LocalDateTime startTime, Duration duration) {
         super(name, dedescription, startTime, duration);
         this.setName(name);
@@ -45,7 +46,8 @@ public class Epic extends Task {
     public void setSubtaskIds(ArrayList<Integer> idSubtask) {
         this.subtaskIds = subtaskIds;
     }
-    public  void  setEndTime(LocalDateTime endTime){
+
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -63,7 +65,7 @@ public class Epic extends Task {
                     ", id: " + getId() +
                     ", status: " + getStatus() +
                     ", idSubtask: " + subtaskIds +
-                    ", startTime: " +startTime.getYear() + "." + startTime.getMonth()
+                    ", startTime: " + startTime.getYear() + "." + startTime.getMonth()
                     + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
                     ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
                     '}';

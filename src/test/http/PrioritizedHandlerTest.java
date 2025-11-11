@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class PrioritizedHandlerTest {
     private HttpTaskServer server;
     Managers managers = new Managers();
+
     @BeforeAll
     void startServer() throws IOException {
         server = new HttpTaskServer(managers);

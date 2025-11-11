@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Subtask extends Task {
     public Duration duration;
     public LocalDateTime startTime;
+
     public int getEpicId() {
         return epicId;
     }
@@ -18,6 +19,7 @@ public class Subtask extends Task {
     public void setEpicId(int epicId) {
         this.epicId = epicId;
     }
+
     private int epicId;
 
     public Subtask(String name, String description, int epicId, LocalDateTime startTime, Duration duration) {
@@ -53,12 +55,13 @@ public class Subtask extends Task {
                 ", id: " + getId() +
                 ", status: " + getStatus() +
                 "apicId: " + epicId +
-                ", startTime: " +startTime.getYear() + "." + startTime.getMonth()
+                ", startTime: " + startTime.getYear() + "." + startTime.getMonth()
                 + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
                 ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
                 '}';
     }
-    public LocalDateTime getEndTime(){
+
+    public LocalDateTime getEndTime() {
         return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
                 plusMinutes(duration.toMinutes());
     }

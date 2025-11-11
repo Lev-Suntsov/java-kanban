@@ -17,7 +17,7 @@ public class PrioritizedHandler extends BaseHttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
         String pach = exchange.getRequestURI().getPath();
-        if(method.equals("GET") && pach.equals("/prioritized")){
+        if (method.equals("GET") && pach.equals("/prioritized")) {
             TreeSet<Task> listc = manager.getDefault().getPrioritizedTasks();
             sendText(exchange, gson.toJson(listc), 200);
         }

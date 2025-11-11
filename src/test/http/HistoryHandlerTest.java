@@ -3,6 +3,7 @@ package test.http;
 import controllers.Managers;
 import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
+
 import java.net.http.*;
 import java.net.URI;
 import java.io.IOException;
@@ -63,6 +64,6 @@ public class HistoryHandlerTest {
         HttpResponse<String> response = client.send(req, HttpResponse.BodyHandlers.ofString());
 
         Assertions.assertEquals(200, response.statusCode(), "Не удалось получить историю");
-        Assertions.assertTrue(response.body().contains(""+taskId), "История должна содержать id просмотренной задачи");
+        Assertions.assertTrue(response.body().contains("" + taskId), "История должна содержать id просмотренной задачи");
     }
 }

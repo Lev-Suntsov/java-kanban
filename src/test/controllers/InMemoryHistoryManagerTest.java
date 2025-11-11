@@ -29,7 +29,7 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager = new InMemoryHistoryManager();
         task = new Task("tetTaskName", "TeskTaskDescription", LocalDateTime.now(),
                 Duration.ZERO);
-        subtask = new Subtask("", "",epic.getId(), LocalDateTime.now(), Duration.ZERO);
+        subtask = new Subtask("", "", epic.getId(), LocalDateTime.now(), Duration.ZERO);
     }
 
     @Test
@@ -47,8 +47,9 @@ class InMemoryHistoryManagerTest {
         testHistory.add(task.getId());
         assertEquals(testHistory, inMemoryHistoryManager.getHistory());
     }
+
     @Test
-    public  void delliteFromHistory(){
+    public void delliteFromHistory() {
         inMemoryHistoryManager.add(epic);
         Task task2 = new Task("tetTaskName", "TeskTaskDescription", LocalDateTime.now(),
                 Duration.ZERO);
@@ -58,8 +59,9 @@ class InMemoryHistoryManagerTest {
         test.add(task2.getId());
         assertEquals(test, inMemoryHistoryManager.getHistory());
     }
+
     @Test
-    public void delliteFromHistoryTest2(){
+    public void delliteFromHistoryTest2() {
         inMemoryHistoryManager.add(subtask);
         inMemoryHistoryManager.add(epic);
         inMemoryHistoryManager.add(task);

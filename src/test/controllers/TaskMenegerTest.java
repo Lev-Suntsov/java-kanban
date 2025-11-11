@@ -1,4 +1,5 @@
 package test.controllers;
+
 import controllers.InMemoryTaskManager;
 import model.Epic;
 import model.Status;
@@ -64,7 +65,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkGetTasksValues() throws IOException{
+    void checkGetTasksValues() throws IOException {
         taskManager.addNewTask(task);
         testTasks.add(task);
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод получения" +
@@ -72,7 +73,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkGetEpicsValues() throws  IOException{
+    void checkGetEpicsValues() throws IOException {
         taskManager.addNewEpic(epic);
         testEpics.add(epic);
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод получения" +
@@ -80,7 +81,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkGetSubtasksValues() throws  IOException{
+    void checkGetSubtasksValues() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -90,7 +91,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkRemoveTaskById() throws  IOException{
+    void checkRemoveTaskById() throws IOException {
         taskManager.addNewTask(task);
         taskManager.removeTaskById(task.getId());
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод удаления" +
@@ -98,7 +99,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkRemoveEpicById() throws  IOException{
+    void checkRemoveEpicById() throws IOException {
         taskManager.addNewEpic(epic);
         taskManager.removeEpicById(epic.getId());
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод удаления" +
@@ -106,7 +107,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void chekRemoveSubtaskById() throws  IOException{
+    void chekRemoveSubtaskById() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -118,22 +119,21 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkGetTask() throws IOException{
+    void checkGetTask() throws IOException {
         taskManager.addNewTask(task);
         assertEquals(task, taskManager.getTask(task.getId()), "Метод получения " +
                 "задачи работает некорректно");
     }
 
     @Test
-    void checkGetEpic() throws  IOException
-    {
+    void checkGetEpic() throws IOException {
         taskManager.addNewEpic(epic);
         assertEquals(epic, taskManager.getEpic(epic.getId()), "Метод получения " +
                 "эпика работает некорректно");
     }
 
     @Test
-    void checkGetSubtask() throws  IOException{
+    void checkGetSubtask() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -142,7 +142,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkDeleteTasks() throws  IOException{
+    void checkDeleteTasks() throws IOException {
         taskManager.addNewTask(task);
         taskManager.deleteTasks();
         assertEquals(testTasks, taskManager.getTasksValues(), "Метод очищения списка" +
@@ -150,7 +150,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkDeleteSubtasks() throws  IOException{
+    void checkDeleteSubtasks() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -160,7 +160,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkDeleteEpics() throws  IOException{
+    void checkDeleteEpics() throws IOException {
         taskManager.addNewEpic(epic);
         taskManager.deleteEpics();
         assertEquals(testEpics, taskManager.getEpicsValues(), "Метод очищения списка" +
@@ -168,7 +168,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkUpdateTask() throws  IOException{
+    void checkUpdateTask() throws IOException {
         taskManager.addNewTask(task);
         taskManager.updateTask(task.getId(), "testTaskName2", "testTaskDescriptionTask2",
                 Status.TaskStatus.DONE);
@@ -177,7 +177,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkUpdateSubtask() throws  IOException{
+    void checkUpdateSubtask() throws IOException {
         taskManager.addNewEpic(epic);
         subtask.setEpicId(epic.getId());
         taskManager.addNewSubtask(subtask);
@@ -189,7 +189,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    void checkUpdateEpic() throws  IOException{
+    void checkUpdateEpic() throws IOException {
         Epic testEpic = new Epic("testEpicName2", "testEpicDescriptionTask2",
                 LocalDateTime.now(), Duration.ZERO);
         taskManager.addNewEpic(epic);
@@ -199,7 +199,7 @@ abstract public class TaskMenegerTest {
     }
 
     @Test
-    <T extends Task> void checkGetHistory() throws IOException{
+    <T extends Task> void checkGetHistory() throws IOException {
         taskManager.addNewTask(task);
         taskManager.getTask(task.getId());
         ArrayList<Integer> testHistory = new ArrayList<>();

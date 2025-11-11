@@ -17,12 +17,12 @@ public class InMemoryTaskManager implements TaskManager {
     private int generatorId = 0;
     private Scanner scanner = new Scanner(System.in);
     StartTimeComporator comporator = new StartTimeComporator();
-    private TreeSet<Task> sortTask= new TreeSet(comporator);
+    private TreeSet<Task> sortTask = new TreeSet(comporator);
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public void addNewTask(Task task) throws IOException {
-        if(!intersectionStartTime(task)){
+        if (!intersectionStartTime(task)) {
             final int id = ++generatorId;
             task.setId(id);
             tasks.put(id, task);
@@ -31,7 +31,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addNewEpic(Epic epic) throws  IOException {
+    public void addNewEpic(Epic epic) throws IOException {
         final int id = ++generatorId;
         epic.setId(id);
         epics.put(id, epic);
@@ -56,20 +56,20 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addNewSubtask(Subtask subtask) throws  IOException{
-        if(!intersectionStartTime(subtask)){
+    public void addNewSubtask(Subtask subtask) throws IOException {
+        if (!intersectionStartTime(subtask)) {
             final int id = ++generatorId;
             subtask.setId(id);
             sortTask.add(subtask);
             subtasks.put(id, subtask);
             epics.get(subtask.getEpicId()).getSubtaskIds().add(id);
             updateEpicStatus(subtask.getEpicId());
-            if(epics.get(subtask.getEpicId()).getSubtaskIds().size() == 1){
+            if (epics.get(subtask.getEpicId()).getSubtaskIds().size() == 1) {
                 epics.get(subtask.getEpicId()).startTime = subtask.startTime;
                 epics.get(subtask.getEpicId()).setEndTime(subtask.getEndTime());
-            }else if (subtask.startTime.isBefore(epics.get(subtask.getEpicId()).startTime)){
+            } else if (subtask.startTime.isBefore(epics.get(subtask.getEpicId()).startTime)) {
                 epics.get(subtask.getEpicId()).startTime = subtask.startTime;
-            }else if(subtask.getEndTime().isAfter(epics.get(subtask.getEpicId()).getEndTime())){
+            } else if (subtask.getEndTime().isAfter(epics.get(subtask.getEpicId()).getEndTime())) {
                 epics.get(subtask.getEpicId()).setEndTime(subtask.getEndTime());
             }
         }
@@ -99,7 +99,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeEpicById(int id) throws  IOException{
+    public void removeEpicById(int id) throws IOException {
         for (int subtaskId : subtasks.keySet()) {
             for (int removedId : epics.get(id).getSubtaskIds()) {
                 if (subtaskId == removedId) {
@@ -114,7 +114,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeSubtaskById(int id, int epicId) throws IOException{
+    public void removeSubtaskById(int id, int epicId) throws IOException {
         subtasks.remove(id);
         for (int i = 0; i < epics.get(epicId).getSubtaskIds().size(); i++) {
             if (epics.get(epicId).getSubtaskIds().get(i) == id) {
@@ -226,18 +226,21 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return history;
     }
+
     @Override
     public String toString() {
         return "controllers.InMemoryTaskManager";
     }
+
     @Override
-    public TreeSet<Task> getPrioritizedTasks(){
+    public TreeSet<Task> getPrioritizedTasks() {
         return sortTask;
     }
+
     @Override
     public boolean intersectionStartTime(Task task) {
         boolean isintersection = false;
-        if(!getPrioritizedTasks().isEmpty()) {
+        if (!getPrioritizedTasks().isEmpty()) {
             for (Task e : getPrioritizedTasks()) {
                 if ((e.startTime.isAfter(task.startTime) && e.getEndTime().isBefore(task.getEndTime())) || e.startTime.equals(task.startTime)) {
                     isintersection = true;

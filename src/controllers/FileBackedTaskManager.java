@@ -2,25 +2,27 @@ package controllers;
 
 import exceptions.ManagerSaveExeption;
 import model.*;
+
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class FileBackedTaskManager  extends InMemoryTaskManager {
-   private ArrayList<String> typeOfTask = new ArrayList<>();
-    protected void save() throws  IOException{
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("SavedTask"))) {
+public class FileBackedTaskManager extends InMemoryTaskManager {
+    private ArrayList<String> typeOfTask = new ArrayList<>();
+
+    protected void save() throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("SavedTask"))) {
             switch (typeOfTask.getLast()) {
                 case "Task":
-                    if(super.getTasksValues().isEmpty()){
+                    if (super.getTasksValues().isEmpty()) {
                         new ManagerSaveExeption("извините, список задач пустой", null);
-                    } else{
+                    } else {
                         writer.write(getTasksValues().getLast().toString());
                     }
                     break;
                 case "Epic":
-                    if(super.getEpicsValues().isEmpty()){
+                    if (super.getEpicsValues().isEmpty()) {
                         new ManagerSaveExeption("Извините, список Эпиков пустой", null);
                     } else {
                         writer.write(getEpicsValues().getLast().toString());
@@ -28,13 +30,13 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
 
                     break;
                 case "Subtask":
-                    if(super.getSubtasksValues().isEmpty()){
+                    if (super.getSubtasksValues().isEmpty()) {
                         new ManagerSaveExeption("Извините, список подзадач пустой", null);
-                    } else{
+                    } else {
                         writer.write(getSubtasksValues().getLast().toString());
                     }
             }
-        } catch (ManagerSaveExeption e){
+        } catch (ManagerSaveExeption e) {
             System.out.println(e.getMessage());
         }
     }
@@ -61,13 +63,13 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeEpicById(int id) throws IOException{
+    public void removeEpicById(int id) throws IOException {
         typeOfTask.remove("Epic");
         super.removeEpicById(id);
         save();
     }
 
-    public static FileBackedTaskManager loadFromFile(File file) throws  IOException {
+    public static FileBackedTaskManager loadFromFile(File file) throws IOException {
         FileBackedTaskManager manager = new FileBackedTaskManager();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -76,8 +78,8 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
                 String[] time = parch[6].split(".");
                 String[] duriator = parch[6].split(".");
                 if (parch[0].equals("Task")) {
-                    Task task = new Task(parch[1], parch[2], LocalDateTime.of(Integer.getInteger(time[0]),Integer.getInteger(time[1])
-                            ,Integer.getInteger(time[2]),Integer.getInteger( time[3]),Integer.getInteger(time[4])),
+                    Task task = new Task(parch[1], parch[2], LocalDateTime.of(Integer.getInteger(time[0]), Integer.getInteger(time[1])
+                            , Integer.getInteger(time[2]), Integer.getInteger(time[3]), Integer.getInteger(time[4])),
                             Duration.ofDays(Integer.getInteger(duriator[0])).plusMinutes(Integer.getInteger(duriator[2])).plusHours(
                                     Integer.getInteger(duriator[1])));
                     if (parch[4].equals("IN_PROGRESS")) {
@@ -90,8 +92,8 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
                     manager.addNewTask(task);
                 }
                 if (parch[0].equals("Epic")) {
-                    Epic epic = new Epic(parch[1], parch[2], LocalDateTime.of(Integer.getInteger(time[0]),Integer.getInteger(time[1])
-                            ,Integer.getInteger(time[2]),Integer.getInteger( time[3]),Integer.getInteger(time[4])), Duration.ofDays(Integer.getInteger(duriator[0])).plusMinutes(Integer.getInteger(duriator[2])).plusHours(
+                    Epic epic = new Epic(parch[1], parch[2], LocalDateTime.of(Integer.getInteger(time[0]), Integer.getInteger(time[1])
+                            , Integer.getInteger(time[2]), Integer.getInteger(time[3]), Integer.getInteger(time[4])), Duration.ofDays(Integer.getInteger(duriator[0])).plusMinutes(Integer.getInteger(duriator[2])).plusHours(
                             Integer.getInteger(duriator[1])));
                     if (parch[4].equals("IN_PROGRESS")) {
                         epic.setStatus(Status.TaskStatus.IN_PROGRESS);
@@ -106,8 +108,8 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
                     for (Subtask element : manager.getSubtasksValues()) {
                         if (Integer.getInteger(parch[5]) == element.getEpicId()) {
                             Subtask subtask = new Subtask(parch[1], parch[2], Integer.getInteger(parch[5]),
-                                    LocalDateTime.of(Integer.getInteger(time[0]),Integer.getInteger(time[1])
-                                            ,Integer.getInteger(time[2]),Integer.getInteger( time[3]),Integer.getInteger(time[4])), Duration.ofDays(Integer.getInteger(duriator[0])).plusMinutes(Integer.getInteger(duriator[2])).plusHours(
+                                    LocalDateTime.of(Integer.getInteger(time[0]), Integer.getInteger(time[1])
+                                            , Integer.getInteger(time[2]), Integer.getInteger(time[3]), Integer.getInteger(time[4])), Duration.ofDays(Integer.getInteger(duriator[0])).plusMinutes(Integer.getInteger(duriator[2])).plusHours(
                                     Integer.getInteger(duriator[1])));
                             if (parch[4].equals("IN_PROGRESS")) {
                                 subtask.setStatus(Status.TaskStatus.IN_PROGRESS);
@@ -118,8 +120,7 @@ public class FileBackedTaskManager  extends InMemoryTaskManager {
                             subtask.setId(Integer.getInteger(parch[3]));
                             manager.addNewSubtask(subtask);
                             break;
-                        }
-                        else if(element == manager.getSubtasksValues().getLast()){
+                        } else if (element == manager.getSubtasksValues().getLast()) {
                             System.out.println("К сожалению данный эпик не существует");
                         }
                     }

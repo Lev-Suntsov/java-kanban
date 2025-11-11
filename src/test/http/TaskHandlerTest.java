@@ -1,7 +1,9 @@
 package test.http;
+
 import controllers.Managers;
 import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
+
 import java.net.URI;
 import java.net.http.*;
 import java.io.IOException;
@@ -13,18 +15,20 @@ public class TaskHandlerTest {
     private HttpTaskServer server;
     int taskId;
     Managers managers = new Managers();
+
     @BeforeAll
-    void startServer() throws IOException{
+    void startServer() throws IOException {
         server = new HttpTaskServer(managers);
         server.start();
     }
+
     @AfterAll
-    void stopServer(){
+    void stopServer() {
         server.stop();
     }
 
     @Test
-    void testAddTask() throws  Exception{
+    void testAddTask() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         LocalDateTime start = LocalDateTime.of(2025, 10, 16, 12, 4, 35);
         String json = String.format(
@@ -42,6 +46,7 @@ public class TaskHandlerTest {
         String idString = responseBody.substring(firstIdIdx, commaIdx).trim();
         taskId = Integer.parseInt(idString);
     }
+
     @Test
     void testGetTasks() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
@@ -49,6 +54,7 @@ public class TaskHandlerTest {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(200, response.statusCode(), "Ошибка в получении задачи");
     }
+
     @Test
     void testUpdateTask() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
@@ -59,6 +65,7 @@ public class TaskHandlerTest {
         Assertions.assertEquals(201, response.statusCode(), "Task should be updated successfully");
 
     }
+
     @Test
     void testDeleteTask() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
@@ -66,8 +73,9 @@ public class TaskHandlerTest {
                 .uri(URI.create("http://localhost:8080/tasks/" + taskId))
                 .DELETE().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals(200, response.statusCode(),"Ошибка в удалении задачи");
+        Assertions.assertEquals(200, response.statusCode(), "Ошибка в удалении задачи");
     }
+
     @Test
     void testGetNonExistentTask() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();

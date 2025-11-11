@@ -10,12 +10,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public abstract class BaseHttpHandler implements HttpHandler {
-    protected final Managers manager ;
+    protected final Managers manager;
     protected final Gson gson = GsonUtil.getGson();
 
     public BaseHttpHandler(Managers manager) {
         this.manager = manager;
     }
+
     protected String readText(HttpExchange h) throws IOException {
         return new String(h.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
     }
