@@ -16,6 +16,9 @@ public abstract class BaseHttpHandler implements HttpHandler {
     public BaseHttpHandler(Managers manager) {
         this.manager = manager;
     }
+    protected String readText(HttpExchange h) throws IOException {
+        return new String(h.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+    }
 
     protected void sendText(HttpExchange exchange, String text, int statusCode) throws IOException {
         byte[] response = text.getBytes(StandardCharsets.UTF_8);

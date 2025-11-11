@@ -1,6 +1,8 @@
 name: Java Tests
+
 on:
-pull_request:
+  pull_request:
+
 jobs:
-build:
-uses: yandex-praktikum/java-kanban/.github/workflows/api-tests.yml@ci
+  build:
+    uses: yandex-praktikum/java-kanban/.github/workflows/api-tests.yml@ci
