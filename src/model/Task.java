@@ -82,8 +82,7 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
-                plusMinutes(duration.toMinutes());
+        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).plusMinutes(duration.toMinutes());
     }
 
 }
