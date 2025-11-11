@@ -1,9 +1,7 @@
-package test.controllers;
+package test.http;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import controllers.HttpTaskServer;
+import controllers.Managers;
+import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
 import java.net.http.*;
 import java.net.URI;
@@ -16,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class HistoryHandlerTest {
     private HttpTaskServer server;
     private int taskId = -1;
+    Managers managers = new Managers();
 
     @BeforeAll
     void startServer() throws IOException, InterruptedException {
-        server = new HttpTaskServer();
+        server = new HttpTaskServer(managers);
         server.start();
 
         // Добавляем задачу, чтобы потом попасть в историю

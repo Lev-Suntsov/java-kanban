@@ -1,8 +1,9 @@
-package test.controllers;
+package test.http;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import controllers.HttpTaskServer;
+import controllers.Managers;
+import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -15,9 +16,10 @@ import java.time.LocalDateTime;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PrioritizedHandlerTest {
     private HttpTaskServer server;
+    Managers managers = new Managers();
     @BeforeAll
     void startServer() throws IOException {
-        server = new HttpTaskServer();
+        server = new HttpTaskServer(managers);
         server.start();
     }
 

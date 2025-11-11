@@ -1,12 +1,13 @@
-package controllers;
+package http;
 
 import com.sun.net.httpserver.HttpExchange;
+import controllers.Managers;
 import model.Task;
 
 import java.io.IOException;
 import java.util.TreeSet;
 
-public class PrioritizedHandler extends BaseHttpHandler{
+public class PrioritizedHandler extends BaseHttpHandler {
 
     public PrioritizedHandler(Managers manager) {
         super(manager);

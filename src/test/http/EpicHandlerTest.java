@@ -1,6 +1,8 @@
-package test.controllers;
+package test.http;
 
-import controllers.HttpTaskServer;
+import controllers.InMemoryTaskManager;
+import controllers.Managers;
+import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -14,9 +16,10 @@ import java.net.http.HttpResponse;
 public class EpicHandlerTest {
         private HttpTaskServer server;
         int epicId;
+        Managers manager = new Managers();
         @BeforeAll
         void startServer() throws IOException {
-            server = new HttpTaskServer();
+            server = new HttpTaskServer(manager);
             server.start();
         }
         @AfterAll
@@ -33,13 +36,7 @@ public class EpicHandlerTest {
                     header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             Assertions.assertEquals(201, response.statusCode(), "Ошибка в добавлении эпика");
-            HttpRequest getEpics = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).GET().build();
-            HttpResponse<String> getResponse = client.send(getEpics, HttpResponse.BodyHandlers.ofString());
-            String responseBody = getResponse.body();
-            int firstIdIdx = responseBody.indexOf("\"id\":") + 5;
-            int commaIdx = responseBody.indexOf(",", firstIdIdx);
-            String idString = responseBody.substring(firstIdIdx, commaIdx).trim();
-            epicId = Integer.parseInt(idString);
+            epicId = manager.getDefault().getEpicsValues().getLast().getId() ;
         }
         @Test
         void testGetEpicById() throws Exception {

@@ -1,22 +1,26 @@
-package controllers;
+package http;
 
 import com.sun.net.httpserver.HttpExchange;
+import controllers.Managers;
+import model.Epic;
 import model.Subtask;
+
 import java.io.IOException;
 import java.util.List;
 
-public class SubtasksHandler extends BaseHttpHandler{
-    public SubtasksHandler(Managers manager) {
+public class EpicHandler extends BaseHttpHandler {
+    public EpicHandler(Managers manager) {
         super(manager);
     }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {
             String method = exchange.getRequestMethod();
             String pach = exchange.getRequestURI().getPath();
 
-            if(method.equals("GET") && pach.equals("/subtasks")){
-                List<Subtask> list= manager.getDefault().getSubtasksValues();
+            if(method.equals("GET") && pach.equals("/epics")){
+                List<Epic> list= manager.getDefault().getEpicsValues();
                 sendText(exchange, gson.toJson(list), 200);
             } else if (method.equals("GET") && pach.matches("//subtasks/\\d=")) {
                 int id = Integer.parseInt(pach.split("/")[2]);

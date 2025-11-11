@@ -1,5 +1,6 @@
-package test.controllers;
-import controllers.HttpTaskServer;
+package test.http;
+import controllers.Managers;
+import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
 import java.net.http.*;
 import java.net.URI;
@@ -12,10 +13,11 @@ public class SubtaskHandlerTest {
     private HttpTaskServer server;
     private int epicId = -1;
     private int subtaskId = -1;
+    Managers managers = new Managers();
 
     @BeforeAll
     void startServer() throws IOException, InterruptedException {
-        server = new HttpTaskServer();
+        server = new HttpTaskServer(managers);
         server.start();
 
         // Сначала создаём epic, иначе подзадачу нельзя будет создать!

@@ -1,5 +1,6 @@
-package test.controllers;
-import controllers.HttpTaskServer;
+package test.http;
+import controllers.Managers;
+import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
 import java.net.URI;
 import java.net.http.*;
@@ -11,9 +12,10 @@ import java.time.LocalDateTime;
 public class TaskHandlerTest {
     private HttpTaskServer server;
     int taskId;
+    Managers managers = new Managers();
     @BeforeAll
     void startServer() throws IOException{
-        server = new HttpTaskServer();
+        server = new HttpTaskServer(managers);
         server.start();
     }
     @AfterAll

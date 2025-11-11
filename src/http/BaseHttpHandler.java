@@ -1,14 +1,17 @@
-package controllers;
+package http;
 
+import adapters.GsonUtil;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.google.gson.Gson;
+import controllers.Managers;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public abstract class BaseHttpHandler implements HttpHandler {
     protected final Managers manager ;
-    protected final Gson gson = new Gson();
+    protected final Gson gson = GsonUtil.getGson();
 
     public BaseHttpHandler(Managers manager) {
         this.manager = manager;

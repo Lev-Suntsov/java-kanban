@@ -1,11 +1,12 @@
-package controllers;
+package http;
 
 import com.sun.net.httpserver.HttpExchange;
+import controllers.Managers;
 
 import java.io.IOException;
 import java.util.List;
 
-public class HistoryHandler extends BaseHttpHandler{
+public class HistoryHandler extends BaseHttpHandler {
     public HistoryHandler(Managers manager) {
         super(manager);
     }
