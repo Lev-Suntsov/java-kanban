@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class Main {
     static FileBackedTaskManager manager;
+
     public static void main(String[] args) throws IOException {
         System.out.println("Приветствую");
         manager = new FileBackedTaskManager();

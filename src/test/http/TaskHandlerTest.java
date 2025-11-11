@@ -31,11 +31,9 @@ public class TaskHandlerTest {
     void testAddTask() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         LocalDateTime start = LocalDateTime.of(2025, 10, 16, 12, 4, 35);
-        String json = String.format(
-                "{\"name\":\"Task1\",\"description\":\"Desc1\",\"id\":0,\"startTime\":\"%s\"}", start.toString());
+        String json = String.format("{\"name\":\"Task1\",\"description\":\"Desc1\",\"id\":0,\"startTime\":\"%s\"}", start.toString());
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).
-                header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(201, response.statusCode(), "Ошибка в добавлении задачи");
         HttpRequest getEpics = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).GET().build();
@@ -59,8 +57,7 @@ public class TaskHandlerTest {
     void testUpdateTask() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String json = "{\"name\":\"Task1Updated\",\"description\":\"Desc1Updated\",\"id\":1}";
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").
-                POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(201, response.statusCode(), "Task should be updated successfully");
 
@@ -69,9 +66,7 @@ public class TaskHandlerTest {
     @Test
     void testDeleteTask() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks/" + taskId))
-                .DELETE().build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks/" + taskId)).DELETE().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(200, response.statusCode(), "Ошибка в удалении задачи");
     }
