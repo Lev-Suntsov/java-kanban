@@ -4,9 +4,7 @@ import controllers.InMemoryTaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Subtask extends Task {
     public Duration duration;
