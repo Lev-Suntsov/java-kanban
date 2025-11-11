@@ -4,11 +4,7 @@ import controllers.InMemoryHistoryManager;
 import controllers.InMemoryTaskManager;
 import controllers.Managers;
 import org.junit.jupiter.api.Test;
-import model.Task;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ManagersTest {

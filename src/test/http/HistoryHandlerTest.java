@@ -9,7 +9,7 @@ import java.net.URI;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HistoryHandlerTest {
@@ -26,16 +26,11 @@ public class HistoryHandlerTest {
         HttpClient client = HttpClient.newHttpClient();
         LocalDateTime st = LocalDateTime.of(2025, 10, 20, 10, 00);
         String json = String.format("{\"name\":\"TaskForHistory\",\"description\":\"Desc\",\"id\":0,\"startTime\":\"%s\"}", st.toString());
-        HttpRequest req = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        HttpRequest req = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
         client.send(req, HttpResponse.BodyHandlers.ofString());
 
         // Получаем id задачи
-        HttpRequest getTasks = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .GET().build();
+        HttpRequest getTasks = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).GET().build();
         HttpResponse<String> resp = client.send(getTasks, HttpResponse.BodyHandlers.ofString());
         String body = resp.body();
         int idx = body.indexOf("\"id\":") + 5;
@@ -44,9 +39,7 @@ public class HistoryHandlerTest {
         taskId = Integer.parseInt(idStr);
 
         // Осуществляем просмотр задачи
-        HttpRequest getTask = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks/" + taskId))
-                .GET().build();
+        HttpRequest getTask = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks/" + taskId)).GET().build();
         client.send(getTask, HttpResponse.BodyHandlers.ofString());
     }
 
@@ -58,9 +51,7 @@ public class HistoryHandlerTest {
     @Test
     void testGetHistory() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest req = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/history"))
-                .GET().build();
+        HttpRequest req = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/history")).GET().build();
         HttpResponse<String> response = client.send(req, HttpResponse.BodyHandlers.ofString());
 
         Assertions.assertEquals(200, response.statusCode(), "Не удалось получить историю");

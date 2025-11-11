@@ -43,8 +43,7 @@ public class InMemoryTaskManager implements TaskManager {
                     if (subtasks.get(i).startTime.isBefore(startTime)) {
                         startTime = subtasks.get(i).startTime;
                     }
-                    duration = subtasks.get(i).duration.plusDays(duration.toDays()).plusHours(
-                            duration.toHours()).plusMinutes(duration.toMinutes());
+                    duration = subtasks.get(i).duration.plusDays(duration.toDays()).plusHours(duration.toHours()).plusMinutes(duration.toMinutes());
                 }
             }
             epic.startTime = startTime;

@@ -25,15 +25,10 @@ public class SubtaskHandlerTest {
         // Сначала создаём epic, иначе подзадачу нельзя будет создать!
         HttpClient client = HttpClient.newHttpClient();
         String epicJson = "{\"name\":\"EpicForSubtask\",\"description\":\"test description\"}";
-        HttpRequest epicReq = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/epics"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(epicJson)).build();
+        HttpRequest epicReq = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(epicJson)).build();
         client.send(epicReq, HttpResponse.BodyHandlers.ofString());
 
-        HttpRequest getEpics = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/epics"))
-                .GET().build();
+        HttpRequest getEpics = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).GET().build();
         HttpResponse<String> epicResp = client.send(getEpics, HttpResponse.BodyHandlers.ofString());
         String responseBody = epicResp.body();
         int firstIdIdx = responseBody.indexOf("\"id\":") + 5;
@@ -51,9 +46,7 @@ public class SubtaskHandlerTest {
     void testAddSubtask() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         LocalDateTime st = LocalDateTime.of(2025, 10, 17, 14, 25);
-        String json = String.format(
-                "{\"name\":\"Subtask1\",\"description\":\"SubtaskDesc\",\"id\":0,\"epicId\":%d,\"startTime\":\"%s\",\"duration\":\"PT1H\"}",
-                epicId, st.toString());
+        String json = String.format("{\"name\":\"Subtask1\",\"description\":\"SubtaskDesc\",\"id\":0,\"epicId\":%d,\"startTime\":\"%s\",\"duration\":\"PT1H\"}", epicId, st.toString());
 
         HttpRequest req = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/subtasks"))

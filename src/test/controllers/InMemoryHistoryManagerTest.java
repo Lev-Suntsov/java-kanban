@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import javax.imageio.IIOException;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,8 +18,7 @@ import java.util.ArrayList;
 class InMemoryHistoryManagerTest {
     InMemoryHistoryManager inMemoryHistoryManager;
     Task task;
-    Epic epic = new Epic("testEpicName", "testEpicDescriptionTask", LocalDateTime.now(),
-            Duration.ZERO);
+    Epic epic = new Epic("testEpicName", "testEpicDescriptionTask", LocalDateTime.now(), Duration.ZERO);
     Subtask subtask;
 
     @BeforeEach

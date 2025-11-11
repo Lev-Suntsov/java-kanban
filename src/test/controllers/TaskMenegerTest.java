@@ -26,12 +26,9 @@ abstract public class TaskMenegerTest {
 
     @BeforeEach
     void createAll() {
-        task = new Task("testTaskName", "testTaskDescriptionTask", LocalDateTime.now(),
-                Duration.ZERO);
-        epic = new Epic("testEpicName", "testEpicDescriptionTask", LocalDateTime.now(),
-                Duration.ZERO);
-        subtask = new Subtask("testSubtaskName", "testSubtaskDescriptionTask",
-                epic.getId(), LocalDateTime.now(), Duration.ZERO);
+        task = new Task("testTaskName", "testTaskDescriptionTask", LocalDateTime.now(), Duration.ZERO);
+        epic = new Epic("testEpicName", "testEpicDescriptionTask", LocalDateTime.now(), Duration.ZERO);
+        subtask = new Subtask("testSubtaskName", "testSubtaskDescriptionTask", epic.getId(), LocalDateTime.now(), Duration.ZERO);
         taskManager = new InMemoryTaskManager();
         testTasks.clear();
         testEpics.clear();

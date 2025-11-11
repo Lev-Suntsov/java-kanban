@@ -34,27 +34,17 @@ public class PrioritizedHandlerTest {
         HttpClient client = HttpClient.newHttpClient();
 
         // Добавим две задачи с разным временем начала
-        String json1 = String.format("{\"name\":\"TaskA\",\"description\":\"DescA\",\"id\":0,\"startTime\":\"%s\"}",
-                LocalDateTime.of(2025, 10, 10, 10, 0));
-        String json2 = String.format("{\"name\":\"TaskB\",\"description\":\"DescB\",\"id\":0,\"startTime\":\"%s\"}",
-                LocalDateTime.of(2025, 10, 11, 10, 0));
+        String json1 = String.format("{\"name\":\"TaskA\",\"description\":\"DescA\",\"id\":0,\"startTime\":\"%s\"}", LocalDateTime.of(2025, 10, 10, 10, 0));
+        String json2 = String.format("{\"name\":\"TaskB\",\"description\":\"DescB\",\"id\":0,\"startTime\":\"%s\"}", LocalDateTime.of(2025, 10, 11, 10, 0));
 
-        HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json1)).build();
-        HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json2)).build();
+        HttpRequest request1 = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json1)).build();
+        HttpRequest request2 = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/tasks")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json2)).build();
 
         client.send(request1, HttpResponse.BodyHandlers.ofString());
         client.send(request2, HttpResponse.BodyHandlers.ofString());
 
         // Получим приоритетный список
-        HttpRequest getPrioritized = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/prioritized"))
-                .GET().build();
+        HttpRequest getPrioritized = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/prioritized")).GET().build();
         HttpResponse<String> resp = client.send(getPrioritized, HttpResponse.BodyHandlers.ofString());
 
         Assertions.assertEquals(200, resp.statusCode(), "Должен быть статус 200");

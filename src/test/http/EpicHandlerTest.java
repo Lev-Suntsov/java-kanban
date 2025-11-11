@@ -1,6 +1,6 @@
 package test.http;
 
-import controllers.InMemoryTaskManager;
+
 import controllers.Managers;
 import http.HttpTaskServer;
 import org.junit.jupiter.api.*;
@@ -34,8 +34,7 @@ public class EpicHandlerTest {
         HttpClient client = HttpClient.newHttpClient();
         String json = "{\"name\":\"Эпик1\",\"description\":\"Эпик для тестов\",\"startTime\":null,\\\"duration\\\":null,\"id\":0 }";
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).
-                header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(201, response.statusCode(), "Ошибка в добавлении эпика");
         epicId = manager.getDefault().getEpicsValues().getLast().getId();
@@ -45,9 +44,7 @@ public class EpicHandlerTest {
     void testGetEpicById() throws Exception {
         Assertions.assertTrue(epicId > 0, "Id эпика должен быть сохранён из предыдущих тестов");
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/epics/" + epicId))
-                .GET().build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics/" + epicId)).GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Assertions.assertEquals(200, response.statusCode(), "Epic не найден");
         Assertions.assertTrue(response.body().contains("EpicTest"));

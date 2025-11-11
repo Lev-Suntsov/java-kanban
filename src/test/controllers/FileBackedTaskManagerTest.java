@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,8 +32,7 @@ public class FileBackedTaskManagerTest extends TaskMenegerTest {
 
     @Test
     public void checkAddNewTask() throws IOException {
-        Task task = new Task("Привет", "Это тестовое описание", LocalDateTime.now(),
-                Duration.ZERO);
+        Task task = new Task("Привет", "Это тестовое описание", LocalDateTime.now(), Duration.ZERO);
         manager.addNewTask(task);
         File tempFile = File.createTempFile("testTask", "txt");
         try (Writer fileWrite = new FileWriter(tempFile)) {
@@ -71,8 +69,7 @@ public class FileBackedTaskManagerTest extends TaskMenegerTest {
     @Test
     public void checkAddNewSubtask() throws IOException {
         manager.addNewEpic(testEpic);
-        Subtask testSubtask = new Subtask("Тестовая подзадача", "Проводится тест добавления подзадачи",
-                testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
+        Subtask testSubtask = new Subtask("Тестовая подзадача", "Проводится тест добавления подзадачи", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
         manager.addNewSubtask(testSubtask);
         File testSubtaskFile = File.createTempFile("testSubtask", "txt");
         try (Writer writer = new FileWriter(testSubtaskFile)) {
