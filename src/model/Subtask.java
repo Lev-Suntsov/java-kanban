@@ -1,6 +1,5 @@
 package model;
 
-import controllers.InMemoryTaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -47,21 +46,11 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "model: Subtask, " +
-                "name:  " + getName() +
-                ", description: " + getDescription() +
-                ", id: " + getId() +
-                ", status: " + getStatus() +
-                "apicId: " + epicId +
-                ", startTime: " + startTime.getYear() + "." + startTime.getMonth()
-                + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() +
-                ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() +
-                '}';
+        return "model: Subtask, " + "name:  " + getName() + ", description: " + getDescription() + ", id: " + getId() + ", status: " + getStatus() + "apicId: " + epicId + ", startTime: " + startTime.getYear() + "." + startTime.getMonth() + "." + startTime.getDayOfMonth() + "." + startTime.getHour() + "." + startTime.getMinute() + ", duriator: " + duration.toDays() + "." + duration.toHours() + "." + duration.toMinutes() + '}';
     }
 
     public LocalDateTime getEndTime() {
-        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).
-                plusMinutes(duration.toMinutes());
+        return startTime.plusDays(duration.toDays()).plusHours(duration.toHours()).plusMinutes(duration.toMinutes());
     }
 }
 
