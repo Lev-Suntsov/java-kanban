@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-abstract public class TaskMenegerTest {
+abstract  class TaskMenegerTest {
     Task task;
     Epic epic;
     Subtask subtask;
