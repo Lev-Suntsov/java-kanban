@@ -43,23 +43,22 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public void addNewSubtask(Subtask subtask) throws IOException {
-        if(subtask != null) {
+        if (subtask != null) {
             typeOfTask.add("Subtask");
             super.addNewSubtask(subtask);
             save();
         } else {
             throw new IllegalArgumentException("subtask не должен быть null");
         }
-
     }
 
     @Override
     public void addNewEpic(Epic epic) throws IOException {
-        if(epic != null) {
+        if (epic != null) {
             typeOfTask.add("Epic");
             super.addNewEpic(epic);
             save();
-        }else {
+        } else {
             throw new IllegalArgumentException("epic не должен быть null");
         }
     }
