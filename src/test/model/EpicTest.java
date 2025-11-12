@@ -41,24 +41,24 @@ class EpicTest {
         assertEquals(testSubtaskIds, epic.getSubtaskIds(), "id не совпадают");
     }
     @Test
-    public  void checkCleanSubtaskIds(){
+    public  void checkCleanSubtaskIds() {
         ArrayList<Integer> testSubtaskIds= new ArrayList<>();
         epic.cleanSubtaskIds();
         assertEquals(testSubtaskIds, epic.getSubtaskIds(), "Списки не совпадают");
     }
     @Test
-    public void checkId(){
+    public void checkId() {
         Epic epic2 = taskManager.getEpicsValues().get(epic.getId() - 1);
         assertEquals(epic, epic2, "Объекты не совпадают");
         taskManager.deleteSubtasks();
     }
     @Test
-    public void checkStatusNEW(){
+    public void checkStatusNEW() {
         assertEquals(epic.getStatus().toString(), "NEW");
         taskManager.deleteSubtasks();
     }
     @Test
-    public void checkStatusDone(){
+    public void checkStatusDone() {
         taskManager.updateSubtask(subtask.getId(), subtask.getName(), subtask.getDescription(), subtask.getEpicId(),
                 Status.TaskStatus.DONE);
         taskManager.updateSubtask(subtask2.getId(), subtask2.getName(), subtask2.getDescription(),
@@ -67,7 +67,7 @@ class EpicTest {
         taskManager.deleteSubtasks();
     }
     @Test
-    public  void checkStatusInprogres(){
+    public  void checkStatusInprogres() {
         taskManager.updateSubtask(subtask.getId(), subtask.getName(), subtask.getDescription(), subtask.getEpicId(),
                 Status.TaskStatus.IN_PROGRESS);
         taskManager.updateSubtask(subtask2.getId(), subtask2.getName(), subtask2.getDescription(),
@@ -76,7 +76,7 @@ class EpicTest {
         taskManager.deleteSubtasks();
     }
     @Test
-    public void checkStatusNewAndDone(){
+    public void checkStatusNewAndDone() {
         taskManager.updateSubtask(subtask2.getId(), subtask2.getName(), subtask2.getDescription(),
                 subtask2.getEpicId(), Status.TaskStatus.DONE);
         assertEquals(epic.getStatus(), Status.TaskStatus.IN_PROGRESS);

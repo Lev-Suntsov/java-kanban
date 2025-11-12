@@ -36,7 +36,7 @@ class SubtaskTest {
     }
 
     @Test
-    public void chheckId(){
+    public void chheckId() {
         Subtask subtask2 = taskManager.getSubtask(epic.getSubtaskIds().get(subtask.getId() - 2));
         assertEquals(subtask, subtask2, "Объекты не совпадают");
         taskManager.deleteSubtasks();

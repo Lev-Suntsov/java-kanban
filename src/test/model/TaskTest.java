@@ -70,7 +70,7 @@ class TaskTest {
         assertEquals(testStatus, task.getStatus(), "Проверь метод setStatus");
     }
     @Test
-    public void checkId(){
+    public void checkId() {
         Task task2 = taskManager.getTask(task.getId());
         assertEquals(task, task2, "Объекты не совпадают");
     }
