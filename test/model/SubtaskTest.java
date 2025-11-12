@@ -1,4 +1,4 @@
-package test.model;
+package model;
 
 import controllers.InMemoryTaskManager;
 import model.Epic;
@@ -25,8 +25,7 @@ class SubtaskTest {
         subtask = new Subtask("Помыть посуду", "Беру губку", epic.getId(), LocalDateTime.now(),
                 Duration.ZERO.plusSeconds(LocalDateTime.now().getSecond()));
         taskManager.addNewSubtask(subtask);
-        taskManager.deleteSubtasks();
-        taskManager.deleteEpics();
+
     }
 
     @Test
@@ -37,7 +36,13 @@ class SubtaskTest {
 
     @Test
     public void chheckId() {
-        Subtask subtask2 = taskManager.getSubtask(epic.getSubtaskIds().get(subtask.getId() - 2));
+        Subtask subtask2 = new Subtask("Помыть посуду", "Беру губку", epic.getId(), LocalDateTime.now(),
+                Duration.ZERO.plusSeconds(LocalDateTime.now().getSecond()));
+        for(int i : taskManager.getEpic(epic.getId()).getSubtaskIds()){
+            if ( subtask.getId() == i){
+                subtask2 = taskManager.getSubtask(i);
+            }
+        }
         assertEquals(subtask, subtask2, "Объекты не совпадают");
         taskManager.deleteSubtasks();
     }

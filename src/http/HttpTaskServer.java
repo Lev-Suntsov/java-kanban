@@ -16,7 +16,6 @@ public class HttpTaskServer {
         this.managers = managers;
         server = HttpServer.create(new InetSocketAddress(PORT), 0);
         server.createContext("/tasks", new TaskHandler(managers));
-        server.createContext("/tasks", new TaskHandler(managers));
         server.createContext("/subtasks", new SubtasksHandler(managers));
         server.createContext("/epics", new EpicHandler(managers));
         server.createContext("/history", new HistoryHandler(managers));

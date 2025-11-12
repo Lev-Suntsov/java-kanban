@@ -29,7 +29,7 @@ class FileBackedTaskManagerTest extends TaskMenegerTest {
             manager.addNewEpic(testEpic);
             subtask = new Subtask("testSubtaskName", "testSubtaskDescriptionTask", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
             manager.addNewSubtask(subtask);
-        }, "Извините, список подзадач пустой");
+        });
     }
 
     @Test
