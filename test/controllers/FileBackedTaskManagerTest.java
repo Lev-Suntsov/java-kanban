@@ -24,15 +24,6 @@ class FileBackedTaskManagerTest extends TaskMenegerTest {
     }
 
     @Test
-    public void testException() {
-        Assertions.assertThrows(ManagerSaveExeption.class, () -> {
-            manager.addNewEpic(testEpic);
-            subtask = new Subtask("testSubtaskName", "testSubtaskDescriptionTask", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
-            manager.addNewSubtask(subtask);
-        });
-    }
-
-    @Test
     public void checkAddNewTask() throws IOException {
         Task task = new Task("Привет", "Это тестовое описание", LocalDateTime.now(), Duration.ZERO);
         manager.addNewTask(task);

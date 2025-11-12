@@ -33,9 +33,10 @@ public class HttpTaskManagerTasksTest {
         HttpRequest getEpics = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/epics")).GET().build();
         HttpResponse<String> epicResp = client.send(getEpics, HttpResponse.BodyHandlers.ofString());
         String responseBody = epicResp.body();
+
         int firstIdIdx = responseBody.indexOf("\"id\":") + 5;
         int commaIdx = responseBody.indexOf(",", firstIdIdx);
-        String idString = responseBody.substring(firstIdIdx, commaIdx).trim();
+        String idString = responseBody.substring(firstIdIdx, commaIdx).trim(); // <-- Здесь ошибка
         epicId = Integer.parseInt(idString);
     }
 
