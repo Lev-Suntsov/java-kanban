@@ -2,30 +2,63 @@ package controllers;
 
 import model.Task;
 
-import java.util.ArrayList;
+import java.util.*;
 
-public class InMemoryHistoryManager implements  HistoryManager{
-    private ArrayList<Task> tasks = new ArrayList<>();
+public class InMemoryHistoryManager implements HistoryManager {
+    private ArrayList<Integer> tasks = new ArrayList<>();
+    HashMap<Integer, Node> nodeMap = new HashMap<>();
+    Node last;
+    Node first;
+
     @Override
-    public void add(Task task){
-        if (task == null){
+    public void add(Task task) {
+        if (task == null) {
             return;
         }
-        if(tasks.size() > 10){
-            ArrayList<Task> tasks2 = new ArrayList<>();
-            for(int i = tasks.size() - 10; i < tasks.size(); i++){
-                tasks2.add(tasks.get(i));
-            }
-            tasks = tasks2;
+        if (nodeMap.containsValue(task)) {
+            removeNode(task.getId());
         }
-        tasks.add(task);
+        linkLast(task);
+        nodeMap.put(task.getId(), last);
     }
+
     @Override
-    public ArrayList<Task> getHistory(){
+    public void remove(int id) {
+        removeNode(id);
+    }
+
+    @Override
+    public ArrayList<Integer> getHistory() {
+        getTasks();
         return tasks;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Класс HistoryManager";
+    }
+
+    private void linkLast(Task task) {
+        final Node node = new Node(task, last, null);
+        if (first == null) {
+            first = node;
+        } else {
+            last.next = node;
+        }
+        last = node;
+    }
+
+    private void getTasks() {
+        ArrayList<Integer> tasksLinkedListToArrayList = new ArrayList<>();
+        for (Integer i : nodeMap.keySet()) {
+            tasksLinkedListToArrayList.add(i);
+        }
+        tasks = tasksLinkedListToArrayList;
+    }
+
+    private void removeNode(int id) {
+        tasks.remove(nodeMap.get(id));
+        nodeMap.remove(id);
+
     }
 }
