@@ -1,8 +1,6 @@
 package test.model;
 
-import model.Epic;
 import model.Status;
-import model.Subtask;
 import model.Task;
 import org.junit.jupiter.api.Test;
 import  controllers.InMemoryTaskManager;
@@ -16,6 +14,7 @@ import java.time.LocalDateTime;
 class TaskTest {
     Task task;
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
     @BeforeEach
     void creatTestTask()throws IOException {
         task = new Task("testTaskName", "testTaskDescription", LocalDateTime.now(),
@@ -69,6 +68,7 @@ class TaskTest {
         task.setStatus(testStatus);
         assertEquals(testStatus, task.getStatus(), "Проверь метод setStatus");
     }
+
     @Test
     public void checkId() {
         Task task2 = taskManager.getTask(task.getId());
