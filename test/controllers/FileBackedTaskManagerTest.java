@@ -5,8 +5,11 @@ import model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,12 +26,14 @@ class FileBackedTaskManagerTest extends TaskMenegerTest {
     @Test
     public void testException() {
         Assertions.assertThrows(ManagerSaveExeption.class, () -> {
+            manager.addNewEpic(testEpic);
+            subtask = new Subtask("testSubtaskName", "testSubtaskDescriptionTask", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
             manager.addNewSubtask(subtask);
-        }, ManagerSaveExeption.class.getMessage());
+        }, "Извините, список подзадач пустой");
     }
 
     @Test
-    public void checkAddNewTask() {
+    public void checkAddNewTask() throws IOException {
         Task task = new Task("Привет", "Это тестовое описание", LocalDateTime.now(), Duration.ZERO);
         manager.addNewTask(task);
         File tempFile = File.createTempFile("testTask", "txt");
@@ -46,7 +51,7 @@ class FileBackedTaskManagerTest extends TaskMenegerTest {
     }
 
     @Test
-    public void checkAddNewEpic() {
+    public void checkAddNewEpic() throws IOException {
         manager.addNewEpic(testEpic);
         File testEpicFile = File.createTempFile("testEpic", "txt");
         try (Writer fileWriter = new FileWriter(testEpicFile)) {
@@ -64,7 +69,7 @@ class FileBackedTaskManagerTest extends TaskMenegerTest {
     }
 
     @Test
-    public void checkAddNewSubtask() {
+    public void checkAddNewSubtask() throws IOException {
         manager.addNewEpic(testEpic);
         Subtask testSubtask = new Subtask("Тестовая подзадача", "Проводится тест добавления подзадачи", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
         manager.addNewSubtask(testSubtask);

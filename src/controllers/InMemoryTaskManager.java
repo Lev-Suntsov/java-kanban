@@ -61,7 +61,11 @@ public class InMemoryTaskManager implements TaskManager {
             subtask.setId(id);
             sortTask.add(subtask);
             subtasks.put(id, subtask);
-            epics.get(subtask.getEpicId()).getSubtaskIds().add(id);
+            Epic epic = epics.get(subtask.getEpicId());
+            if (epic == null) {
+                throw new IllegalArgumentException("Эпик с таким ID не существует");
+            }
+            epic.getSubtaskIds().add(id);
             updateEpicStatus(subtask.getEpicId());
             if (epics.get(subtask.getEpicId()).getSubtaskIds().size() == 1) {
                 epics.get(subtask.getEpicId()).startTime = subtask.startTime;

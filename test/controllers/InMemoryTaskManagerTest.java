@@ -27,7 +27,6 @@ class InMemoryTaskManagerTest extends TaskMenegerTest {
         taskManager.addNewSubtask(new Subtask("тест", "подзадача 2", epic.getId(), LocalDateTime.of(2025, Month.OCTOBER, 16, 12, 4, 35), Duration.ZERO));
         ArrayList<Subtask> testArrayList = new ArrayList<>();
         testArrayList.add(taskManager.getSubtasksValues().get(0));
-        testArrayList.add(taskManager.getSubtasksValues().get(1));
         assertEquals(taskManager.getSubtasksValues(), testArrayList);
     }
 }

@@ -15,7 +15,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("SavedTask"))) {
             switch (typeOfTask.getLast()) {
                 case "Task":
-                    if (super.getTasksValues().isEmpty()) {
+                    if (super.getTasksValues() == null) {
                         new ManagerSaveExeption("извините, список задач пустой", null);
                     } else {
                         writer.write(getTasksValues().getLast().toString());
@@ -23,7 +23,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     break;
                 case "Epic":
                     if (super.getEpicsValues().isEmpty()) {
-                        new ManagerSaveExeption("Извините, список Эпиков пустой", null);
+                        throw new ManagerSaveExeption("Извините, список Эпиков пустой", null);
                     } else {
                         writer.write(getEpicsValues().getLast().toString());
                     }
@@ -43,23 +43,36 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public void addNewSubtask(Subtask subtask) throws IOException {
-        typeOfTask.add("Subtask");
-        super.addNewSubtask(subtask);
-        save();
+        if(subtask != null) {
+            typeOfTask.add("Subtask");
+            super.addNewSubtask(subtask);
+            save();
+        } else {
+            throw new IllegalArgumentException("subtask не должен быть null");
+        }
+
     }
 
     @Override
     public void addNewEpic(Epic epic) throws IOException {
-        typeOfTask.add("Epic");
-        super.addNewEpic(epic);
-        save();
+        if(epic != null) {
+            typeOfTask.add("Epic");
+            super.addNewEpic(epic);
+            save();
+        }else {
+            throw new IllegalArgumentException("epic не должен быть null");
+        }
     }
 
     @Override
     public void addNewTask(Task task) throws IOException {
-        typeOfTask.add("Task");
-        super.addNewTask(task);
-        save();
+        if (task != null) {
+            typeOfTask.add("Task");
+            super.addNewTask(task);
+            save();
+        } else {
+            throw new IllegalArgumentException("epic не должен быть null");
+        }
     }
 
     @Override
