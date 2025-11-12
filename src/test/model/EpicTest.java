@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import  controllers.InMemoryTaskManager;
 
 import java.io.IOException;
-import java.io.ObjectInputFilter;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ class EpicTest {
     Subtask subtask;
     Epic epic;
     Subtask subtask2;
+
     @BeforeEach
     public void creatEpic()throws IOException {
         Duration duration = Duration.ZERO;
@@ -35,8 +36,8 @@ class EpicTest {
     }
 
     @Test
-    public  void checkGetSubtaskIds() throws IOException{
-        ArrayList<Integer> testSubtaskIds= new ArrayList<>();
+    public  void checkGetSubtaskIds() {
+        ArrayList<Integer> testSubtaskIds = new ArrayList<>();
         testSubtaskIds.add(subtask.getId());
         testSubtaskIds.add(subtask2.getId());
         assertEquals(testSubtaskIds, epic.getSubtaskIds(), "id не совпадают");
@@ -44,7 +45,7 @@ class EpicTest {
 
     @Test
     public  void checkCleanSubtaskIds() {
-        ArrayList<Integer> testSubtaskIds= new ArrayList<>();
+        ArrayList<Integer> testSubtaskIds = new ArrayList<>();
         epic.cleanSubtaskIds();
         assertEquals(testSubtaskIds, epic.getSubtaskIds(), "Списки не совпадают");
     }
