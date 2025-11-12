@@ -1,4 +1,3 @@
-package test.controllers;
 
 import controllers.InMemoryHistoryManager;
 import model.Epic;

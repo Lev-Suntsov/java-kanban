@@ -1,4 +1,3 @@
-package test.controllers;
 
 import controllers.FileBackedTaskManager;
 import exceptions.ManagerSaveExeption;
@@ -6,14 +5,12 @@ import model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileBackedTaskManagerTest extends TaskMenegerTest {
+class FileBackedTaskManagerTest extends TaskMenegerTest {
     static FileBackedTaskManager manager;
     Epic testEpic;
 
@@ -27,11 +24,11 @@ public class FileBackedTaskManagerTest extends TaskMenegerTest {
     public void testException() {
         Assertions.assertThrows(ManagerSaveExeption.class, () -> {
             manager.addNewSubtask(subtask);
-        }, "Извините, список подзадач пустой");
+        }, ManagerSaveExeption.class.getMessage());
     }
 
     @Test
-    public void checkAddNewTask() throws IOException {
+    public void checkAddNewTask() {
         Task task = new Task("Привет", "Это тестовое описание", LocalDateTime.now(), Duration.ZERO);
         manager.addNewTask(task);
         File tempFile = File.createTempFile("testTask", "txt");
@@ -49,7 +46,7 @@ public class FileBackedTaskManagerTest extends TaskMenegerTest {
     }
 
     @Test
-    public void checkAddNewEpic() throws IOException {
+    public void checkAddNewEpic() {
         manager.addNewEpic(testEpic);
         File testEpicFile = File.createTempFile("testEpic", "txt");
         try (Writer fileWriter = new FileWriter(testEpicFile)) {
@@ -67,7 +64,7 @@ public class FileBackedTaskManagerTest extends TaskMenegerTest {
     }
 
     @Test
-    public void checkAddNewSubtask() throws IOException {
+    public void checkAddNewSubtask() {
         manager.addNewEpic(testEpic);
         Subtask testSubtask = new Subtask("Тестовая подзадача", "Проводится тест добавления подзадачи", testEpic.getId(), LocalDateTime.now(), Duration.ZERO);
         manager.addNewSubtask(testSubtask);

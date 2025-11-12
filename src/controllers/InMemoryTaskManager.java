@@ -241,7 +241,7 @@ public class InMemoryTaskManager implements TaskManager {
         boolean isintersection = false;
         if (!getPrioritizedTasks().isEmpty()) {
             for (Task e : getPrioritizedTasks()) {
-                if ((e.startTime.isAfter(task.startTime) && e.getEndTime().isBefore(task.getEndTime())) || e.startTime.equals(task.startTime)) {
+                if ((e.getEndTime().isBefore(task.startTime) || e.startTime.isAfter(task.getEndTime()))) {
                     isintersection = true;
                     break;
                 }
