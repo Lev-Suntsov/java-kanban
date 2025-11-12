@@ -2,6 +2,7 @@ package http;
 
 import com.sun.net.httpserver.HttpExchange;
 import controllers.Managers;
+import exceptions.ManagerSaveExeption;
 import model.Epic;
 import model.Subtask;
 
@@ -34,15 +35,15 @@ public class EpicHandler extends BaseHttpHandler {
             } else if (method.equals("POST") && pach.equals("/epics")) {
                 String body = new String(exchange.getRequestBody().readAllBytes());
                 Epic epic = gson.fromJson(body, Epic.class);
-                if (idFinded.length >= 33) {
+                if (idFinded.length > 0) {
                     manager.getDefault().updateEpic(epic.getId(), epic.getName(), epic.getDescription());
                     sendText(exchange, "Подзадача обновлена", 201);
                 } else {
-                    if (!manager.getDefault().intersectionStartTime(epic)) {
-                        manager.getDefault().addNewEpic(epic);
+                    try{
+                    manager.getDefault().addNewEpic(epic);
                         sendText(exchange, "Эпик добавлен", 200);
-                    } else {
-                        sendHasInteractions(exchange, "Эпик пересекается по времени с другой");
+                    } catch (ManagerSaveExeption e){
+                        sendHasInteractions(exchange, e.getMessage());
                     }
                 }
             } else if (method.equals("DELETE") && idFinded.length >= 3) {
