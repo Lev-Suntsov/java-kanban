@@ -39,7 +39,7 @@ public class EpicHandler extends BaseHttpHandler {
                     manager.getDefault().updateEpic(epic.getId(), epic.getName(), epic.getDescription());
                     sendText(exchange, "Подзадача обновлена", 201);
                 } else {
-                    try{
+                    try {
                     manager.getDefault().addNewEpic(epic);
                         sendText(exchange, "Эпик добавлен", 200);
                     } catch (ManagerSaveExeption e){
