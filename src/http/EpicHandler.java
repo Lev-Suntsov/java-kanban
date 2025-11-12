@@ -42,7 +42,7 @@ public class EpicHandler extends BaseHttpHandler {
                     try {
                     manager.getDefault().addNewEpic(epic);
                         sendText(exchange, "Эпик добавлен", 200);
-                    } catch (ManagerSaveExeption e){
+                    } catch (ManagerSaveExeption e) {
                         sendHasInteractions(exchange, e.getMessage());
                     }
                 }
